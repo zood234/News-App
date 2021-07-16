@@ -1,6 +1,6 @@
 package com.example.newsappwithapi.dataWeb
 
-data class NewsResponse(
+data class TopStoriesResponse(
     val copyright: String,
     val last_updated: String,
     val num_results: Int,

@@ -54,7 +54,6 @@ fun deleteItems() {
     cat.removeAll(cat)
     url.removeAll(url)
     picture.removeAll(url)
-    notifyDataSetChanged()
 }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

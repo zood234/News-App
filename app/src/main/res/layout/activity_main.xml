@@ -9,6 +9,16 @@
         android:orientation="horizontal" >
 
         <Button
+            android:id="@+id/btnTopStories"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="Top Stories"
+            android:textColor="@color/colorText"
+            android:layout_weight="1"/>
+
+        <Button
             android:id="@+id/btnMostPopular"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
@@ -28,15 +38,7 @@
             android:textColor="@color/colorText"
             android:layout_weight="1"/>
 
-        <Button
-            android:id="@+id/btnTopStories"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="Top Stories"
-            android:textColor="@color/colorText"
-            android:layout_weight="1"/>
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

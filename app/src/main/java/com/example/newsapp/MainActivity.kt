@@ -1,22 +1,26 @@
 package com.example.newsapp
 
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.newsapp.jsonData.MostPopularResponse
 import com.example.newsappwithapi.NewsApi
-import com.example.newsappwithapi.dataWeb.NewsResponse
+import com.example.newsappwithapi.dataWeb.TopStoriesResponse
+
 import com.example.recyclerview.ItemAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+
+
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.net.URL
 
 
 var titleList = ArrayList<String>()
@@ -29,40 +33,107 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        getApiData()
+        val itemAdapter = ItemAdapter(this, title(), date(), cat(),picture(),url())
+        getTopStories()
+        val mbtnTopStories = findViewById(R.id.btnTopStories) as Button
+        val mbtnMostPopular = findViewById(R.id.btnMostPopular) as Button
 
+
+        mbtnTopStories.setOnClickListener {
+            itemAdapter.deleteItems()
+            getTopStories()
+        }
+
+        mbtnMostPopular.setOnClickListener {
+            itemAdapter.deleteItems()
+            getMostPopular()
+        }
     }
 
-    fun getApiData(): ArrayList<String>{
-        //This one gets added
 
+    fun getMostPopular(): ArrayList<String>{
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.nytimes.com/svc/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service = retrofit.create(NewsApi::class.java)
-        val call = service.getNews()
-        call.enqueue(object : Callback<NewsResponse> {
 
-            override fun onResponse(call: Call<NewsResponse>, response: Response<NewsResponse>) {
+        val call = service.mostPopular()
+        call.enqueue(object : Callback<MostPopularResponse> {
 
+            override fun onResponse(call: Call<MostPopularResponse>, response: Response<MostPopularResponse>) {
 
                 if (response.code() == 200) {
                     val newsResponse = response.body()!!
 
                     for (i in 1..newsResponse.results.size-1) {
                         titleList.add(newsResponse.results[i].title)
-
                     }
-
                     for (i in 1..newsResponse.results.size-1) {
                         dateList.add(newsResponse.results[i].published_date)
+                    }
+                    for (i in 1..newsResponse.results.size-1) {
+                        urlList.add(newsResponse.results[i].url)
+                    }
+                    for (i in 0..6) {
+                        if (newsResponse.results[0].media[0].media_metadata[0].url != "") {
+                   //            pictureList.add(newsResponse.results[i].media[0].media_metadata[0].url)
+                            pictureList.add(newsResponse.results[0].media[0].media_metadata[0].url)
+                            pictureList.add(newsResponse.results[1].media[0].media_metadata[0].url)
+                            pictureList.add(newsResponse.results[2].media[0].media_metadata[0].url)
+                            pictureList.add(newsResponse.results[3].media[0].media_metadata[0].url)
+                            pictureList.add(newsResponse.results[4].media[0].media_metadata[0].url)
+                            pictureList.add(newsResponse.results[5].media[0].media_metadata[0].url)
+                        }
+                   }
+                    for (i in 1..newsResponse.results.size-1) {
+                        categoryList.add(newsResponse.results[i].section)
 
                     }
 
+                    recyclerView()
+                }
+
+
+                println( "This is the title list " + titleList)
+                println( "This is the date List  " + dateList)
+                println( "This is the hyperlink List  " + urlList)
+                println( "This is the category List  " + categoryList)
+                println( "This is the image url  " + pictureList)
+
+
+
+            }
+            override fun onFailure(call: Call<MostPopularResponse>, t: Throwable) {
+                //   newsData!!.text = t.message
+            }
+        })
+        return titleList
+    }
+
+    fun getTopStories(): ArrayList<String>{
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://api.nytimes.com/svc/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val service = retrofit.create(NewsApi::class.java)
+
+            val call = service.topStories()
+        call.enqueue(object : Callback<TopStoriesResponse> {
+
+            override fun onResponse(call: Call<TopStoriesResponse>, response: Response<TopStoriesResponse>) {
+
+                if (response.code() == 200) {
+                    val newsResponse = response.body()!!
+
+                    for (i in 1..newsResponse.results.size-1) {
+                        titleList.add(newsResponse.results[i].title)
+                    }
+                    for (i in 1..newsResponse.results.size-1) {
+                        dateList.add(newsResponse.results[i].published_date)
+                    }
                     for (i in 1..newsResponse.results.size-1) {
                         urlList.add(newsResponse.results[i].url)
-
                     }
                     for (i in 1..newsResponse.results.size-1) {
                         pictureList.add(newsResponse.results[i].multimedia[0].url) // need to change
@@ -72,18 +143,18 @@ class MainActivity : AppCompatActivity() {
                         categoryList.add(newsResponse.results[i].section)
 
                     }
-
                     recyclerView()
-
                 }
             }
-            override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
+            override fun onFailure(call: Call<TopStoriesResponse>, t: Throwable) {
                 //   newsData!!.text = t.message
             }
         })
         return titleList
-
     }
+
+
+
 
 
     fun recyclerView(){
@@ -96,7 +167,7 @@ class MainActivity : AppCompatActivity() {
         // adapter instance is set to the recyclerview to inflate the items.
         recycler_view_items.adapter = itemAdapter
         itemAdapter.notifyDataSetChanged()
-
+       //  itemAdapter.deleteItems()
     }
 
     fun title(): ArrayList<String>{
