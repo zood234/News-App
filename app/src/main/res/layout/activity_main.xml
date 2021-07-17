@@ -28,13 +28,14 @@
             android:textColor="@color/colorText"
             android:layout_weight="1"/>
 
+
         <Button
-            android:id="@+id/btnPolitics"
+            android:id="@+id/btnArts"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            android:text="Politics"
+            android:text="Arts"
             android:textColor="@color/colorText"
             android:layout_weight="1"/>
 

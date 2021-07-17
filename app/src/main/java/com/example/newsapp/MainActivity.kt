@@ -1,8 +1,12 @@
 package com.example.newsapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +17,8 @@ import com.example.newsappwithapi.dataWeb.TopStoriesResponse
 
 import com.example.recyclerview.ItemAdapter
 import kotlinx.android.synthetic.main.activity_main.*
-
+import kotlinx.android.synthetic.main.activity_web_view.*
+import kotlinx.android.synthetic.main.activity_web_view.view.*
 
 
 import retrofit2.Call
@@ -22,7 +27,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
+var articleClicked = ArticleClicked()
 var titleList = ArrayList<String>()
 var dateList = ArrayList<String>()
 var urlList = ArrayList<String>()
@@ -37,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         getTopStories()
         val mbtnTopStories = findViewById(R.id.btnTopStories) as Button
         val mbtnMostPopular = findViewById(R.id.btnMostPopular) as Button
-
+        val mbtnArts = findViewById(R.id.btnArts) as Button
 
         mbtnTopStories.setOnClickListener {
             itemAdapter.deleteItems()
@@ -48,7 +53,82 @@ class MainActivity : AppCompatActivity() {
             itemAdapter.deleteItems()
             getMostPopular()
         }
+
+        mbtnArts.setOnClickListener {
+            itemAdapter.deleteItems()
+            getArts()
+
+
+
+        }
+
+
+
+
     }
+
+//    override fun onBackPressed() {
+//        if (webView!!.canGoBack()) {
+//            webView.goBack()
+//        } else {
+//            super.onBackPressed()
+//        }
+//    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean{
+
+        when(item.itemId){
+            R.id.miSearch -> Toast.makeText(this, "You clicked on search", Toast.LENGTH_SHORT).show()
+            R.id.miNotifications -> Toast.makeText(this, "You clicked on noifactions", Toast.LENGTH_SHORT).show()
+            R.id.miContacts -> Toast.makeText(this, "You clicked on contacts", Toast.LENGTH_SHORT).show()
+
+        }
+
+        return true
+    }
+
+    fun getArts(): ArrayList<String>{
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://api.nytimes.com/svc/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val service = retrofit.create(NewsApi::class.java)
+
+        val call = service.arts()
+        call.enqueue(object : Callback<TopStoriesResponse> {
+
+            override fun onResponse(call: Call<TopStoriesResponse>, response: Response<TopStoriesResponse>) {
+
+                if (response.code() == 200) {
+                    val newsResponse = response.body()!!
+
+                    for (i in 1..newsResponse.results.size-1) {
+                        titleList.add(newsResponse.results[i].title)
+                    }
+                    for (i in 1..newsResponse.results.size-1) {
+                        dateList.add(newsResponse.results[i].published_date)
+                    }
+                    for (i in 1..newsResponse.results.size-1) {
+                        urlList.add(newsResponse.results[i].url)
+                    }
+                    for (i in 1..newsResponse.results.size-1) {
+                        pictureList.add(newsResponse.results[i].multimedia[0].url) // need to change
+
+                    }
+                    for (i in 1..newsResponse.results.size-1) {
+                        categoryList.add(newsResponse.results[i].section)
+
+                    }
+                    recyclerView()
+                }
+            }
+            override fun onFailure(call: Call<TopStoriesResponse>, t: Throwable) {
+                //   newsData!!.text = t.message
+            }
+        })
+        return titleList
+    }
+
+
 
 
     fun getMostPopular(): ArrayList<String>{
@@ -195,17 +275,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean{
 
-        when(item.itemId){
-            R.id.miSearch -> Toast.makeText(this, "You clicked on search", Toast.LENGTH_SHORT).show()
-            R.id.miNotifications -> Toast.makeText(this, "You clicked on noifactions", Toast.LENGTH_SHORT).show()
-            R.id.miContacts -> Toast.makeText(this, "You clicked on contacts", Toast.LENGTH_SHORT).show()
-
-        }
-
-        return true
-    }
 
 
 }

@@ -3,21 +3,16 @@ package com.example.recyclerview
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
-import android.graphics.Picture
-import android.icu.number.NumberFormatter.with
-import android.icu.number.NumberRangeFormatter.with
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
+import com.example.newsapp.WebView
+import com.example.newsapp.articleClicked
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_web_view.view.*
 import kotlinx.android.synthetic.main.item_custom_row.view.*
-import java.net.URL
 
 class ItemAdapter(val context: Context, var title: ArrayList<String> , var publishedDate: ArrayList<String>,
                   var cat: ArrayList<String>,  var picture: ArrayList<String>, var url: ArrayList<String>) :
@@ -70,14 +65,16 @@ fun deleteItems() {
         holder.tv_cat.text = Cat
         holder.tv_url.text = Picture
 
-
         picasso.load(Picture).into(holder.iv_picture)
 
 
         holder.cardViewItem.setOnClickListener{
 
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(Url))
-            mContext.startActivity(browserIntent)
+
+            articleClicked.temp = Url
+            val intent = Intent(mContext, WebView::class.java)
+            mContext.startActivity(intent)
+
 
         }
 
@@ -93,6 +90,7 @@ fun deleteItems() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         // Holds the TextView that will add each item to
 
+        val mwebViewArticle = view.webViewArticle
         val tvItem = view.tv_item_name
         val tvDate = view.tv_date
         val tv_cat = view.tv_cat

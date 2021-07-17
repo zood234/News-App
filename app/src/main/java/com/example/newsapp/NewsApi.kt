@@ -12,5 +12,7 @@ interface NewsApi {
     @GET("topstories/v2/home.json?api-key=x2iWc8c8nV8F0MKCLZjxFSjjWx4JApsk")
     fun topStories(): Call<TopStoriesResponse>
 
+    @GET("topstories/v2/arts.json?api-key=x2iWc8c8nV8F0MKCLZjxFSjjWx4JApsk")
+    fun arts(): Call<TopStoriesResponse>
 
 }
