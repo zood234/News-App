@@ -48,12 +48,11 @@ fun deleteItems() {
     publishedDate.removeAll(publishedDate)
     cat.removeAll(cat)
     url.removeAll(url)
-    picture.removeAll(url)
+    picture.removeAll(picture)
 }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val picasso = Picasso.get()
 
         val item = title.get(position)
         val PublishedDate = publishedDate.get(position)
@@ -65,6 +64,7 @@ fun deleteItems() {
         holder.tv_cat.text = Cat
         holder.tv_url.text = Picture
 
+        val picasso = Picasso.get()
         picasso.load(Picture).into(holder.iv_picture)
 
 

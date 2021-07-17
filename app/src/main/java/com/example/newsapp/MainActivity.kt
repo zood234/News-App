@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.newsapp.jsonData.ArtResponse
 import com.example.newsapp.jsonData.MostPopularResponse
 import com.example.newsappwithapi.NewsApi
 import com.example.newsappwithapi.dataWeb.TopStoriesResponse
@@ -26,6 +27,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
 
 var articleClicked = ArticleClicked()
 var titleList = ArrayList<String>()
@@ -55,8 +57,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         mbtnArts.setOnClickListener {
-            itemAdapter.deleteItems()
-            getArts()
+            try {
+
+
+                itemAdapter.deleteItems()
+                getArts()
+            }
+            catch (e: IOException) {
+                e.printStackTrace()
+
+            }
 
 
 
@@ -92,39 +102,44 @@ class MainActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service = retrofit.create(NewsApi::class.java)
-
         val call = service.arts()
-        call.enqueue(object : Callback<TopStoriesResponse> {
+        try {
 
-            override fun onResponse(call: Call<TopStoriesResponse>, response: Response<TopStoriesResponse>) {
+
+        call.enqueue(object : Callback<ArtResponse> {
+
+            override fun onResponse(call: Call<ArtResponse>, response: Response<ArtResponse>) {
 
                 if (response.code() == 200) {
                     val newsResponse = response.body()!!
 
-                    for (i in 1..newsResponse.results.size-1) {
-                        titleList.add(newsResponse.results[i].title)
+                    for (i in 0..5) {
+                       titleList.add(newsResponse.results[i].title)
                     }
-                    for (i in 1..newsResponse.results.size-1) {
-                        dateList.add(newsResponse.results[i].published_date)
+                    for (i in 0..5) {
+                       dateList.add(newsResponse.results[i].published_date)
                     }
-                    for (i in 1..newsResponse.results.size-1) {
-                        urlList.add(newsResponse.results[i].url)
+                    for (i in 0..5) {
+                       urlList.add(newsResponse.results[i].url)
                     }
-                    for (i in 1..newsResponse.results.size-1) {
-                        pictureList.add(newsResponse.results[i].multimedia[0].url) // need to change
+                    for (i in 0..5) {
+                       pictureList.add(newsResponse.results[i].multimedia[0].url) // need to change
 
                     }
-                    for (i in 1..newsResponse.results.size-1) {
-                        categoryList.add(newsResponse.results[i].section)
+                    for (i in 0..6) {
+                      categoryList.add(newsResponse.results[i].section)
 
                     }
                     recyclerView()
                 }
             }
-            override fun onFailure(call: Call<TopStoriesResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ArtResponse>, t: Throwable) {
                 //   newsData!!.text = t.message
             }
-        })
+        })}catch (e: IOException) {
+            e.printStackTrace()
+
+        }
         return titleList
     }
 
