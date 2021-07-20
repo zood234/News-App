@@ -71,7 +71,7 @@ fun deleteItems() {
         holder.cardViewItem.setOnClickListener{
 
 
-            articleClicked.temp = Url
+            articleClicked.articleClicked = Url
             val intent = Intent(mContext, WebView::class.java)
             mContext.startActivity(intent)
 

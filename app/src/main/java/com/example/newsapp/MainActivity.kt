@@ -1,12 +1,8 @@
 package com.example.newsapp
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,8 +14,6 @@ import com.example.newsappwithapi.dataWeb.TopStoriesResponse
 
 import com.example.recyclerview.ItemAdapter
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_web_view.*
-import kotlinx.android.synthetic.main.activity_web_view.view.*
 
 
 import retrofit2.Call
@@ -29,7 +23,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
-var articleClicked = ArticleClicked()
+var articleClicked = Article()
 var titleList = ArrayList<String>()
 var dateList = ArrayList<String>()
 var urlList = ArrayList<String>()
