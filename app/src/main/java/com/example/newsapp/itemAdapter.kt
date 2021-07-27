@@ -40,9 +40,6 @@ class ItemAdapter(val context: Context, var title: ArrayList<String> , var publi
         return title.size
     }
 
-//    fun clearItem(){
-//            items.clear()
-//    }
 fun deleteItems() {
     title.removeAll(title)
     publishedDate.removeAll(publishedDate)
@@ -70,7 +67,6 @@ fun deleteItems() {
 
         holder.cardViewItem.setOnClickListener{
 
-
             articleClicked.articleClicked = Url
             val intent = Intent(mContext, WebView::class.java)
             mContext.startActivity(intent)
@@ -78,12 +74,7 @@ fun deleteItems() {
 
         }
 
-
-
-        //   notifyDataSetChanged()
-
     }
-
 
 
 
