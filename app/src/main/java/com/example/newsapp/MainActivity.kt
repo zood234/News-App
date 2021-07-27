@@ -1,5 +1,6 @@
 package com.example.newsapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -23,7 +24,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
-var articleClicked = Article()
+var articleClicked = ArticleClicked()
 var titleList = ArrayList<String>()
 var dateList = ArrayList<String>()
 var urlList = ArrayList<String>()
@@ -71,17 +72,15 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-//    override fun onBackPressed() {
-//        if (webView!!.canGoBack()) {
-//            webView.goBack()
-//        } else {
-//            super.onBackPressed()
-//        }
-//    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean{
 
+    val i = Intent(this@MainActivity, Search::class.java)
+
         when(item.itemId){
-            R.id.miSearch -> Toast.makeText(this, "You clicked on search", Toast.LENGTH_SHORT).show()
+            R.id.miSearch ->
+                startActivity(i)
+                    //Toast.makeText(this, "You clicked on search", Toast.LENGTH_SHORT).show()
             R.id.miNotifications -> Toast.makeText(this, "You clicked on noifactions", Toast.LENGTH_SHORT).show()
             R.id.miContacts -> Toast.makeText(this, "You clicked on contacts", Toast.LENGTH_SHORT).show()
 
