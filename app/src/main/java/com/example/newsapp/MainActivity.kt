@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean{
 
-    val i = Intent(this@MainActivity, Search::class.java)
+    val i = Intent(this@MainActivity, Query::class.java)
 
         when(item.itemId){
             R.id.miSearch ->
