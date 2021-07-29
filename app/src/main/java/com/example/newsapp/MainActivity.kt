@@ -25,12 +25,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
 var articleClicked = ArticleClicked()
-var titleList = ArrayList<String>()
-var dateList = ArrayList<String>()
-var urlList = ArrayList<String>()
-var pictureList = ArrayList<String>()
-var categoryList = ArrayList<String>()
-
+var titleList = ArrayList<String?>()
+var dateList = ArrayList<String?>()
+var urlList = ArrayList<String?>()
+var pictureList = ArrayList<String?>()
+var categoryList = ArrayList<String?>()
+var searchQuerys = "search/v2/articlesearch.json?fq=trump&fq=travel&facet_field=day_of_week&facet=true&begin_date=20200101&end_date=20210101&api-key=x2iWc8c8nV8F0MKCLZjxFSjjWx4JApsk"
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    fun getArts(): ArrayList<String>{
+    fun getArts(): ArrayList<String?>{
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.nytimes.com/svc/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity() {
                        urlList.add(newsResponse.results[i].url)
                     }
                     for (i in 0..5) {
-                       pictureList.add(newsResponse.results[i].multimedia[0].url) // need to change
+                       pictureList.add(newsResponse.results[i].multimedia[0].url)
 
                     }
                     for (i in 0..6) {
@@ -139,7 +139,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    fun getMostPopular(): ArrayList<String>{
+    fun getMostPopular(): ArrayList<String?>{
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.nytimes.com/svc/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -199,7 +199,7 @@ class MainActivity : AppCompatActivity() {
         return titleList
     }
 
-    fun getTopStories(): ArrayList<String>{
+    fun getTopStories(): ArrayList<String?>{
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.nytimes.com/svc/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -258,23 +258,23 @@ class MainActivity : AppCompatActivity() {
        //  itemAdapter.deleteItems()
     }
 
-    fun title(): ArrayList<String>{
+    fun title(): ArrayList<String?>{
         return titleList
     }
 
-    fun date(): ArrayList<String>{
+    fun date(): ArrayList<String?>{
         return dateList
     }
 
-    fun url(): ArrayList<String>{
+    fun url(): ArrayList<String?>{
         return urlList
     }
 
-    fun cat(): ArrayList<String>{
+    fun cat(): ArrayList<String?>{
         return categoryList
     }
 
-    fun picture(): ArrayList<String>{
+    fun picture(): ArrayList<String?>{
         return pictureList
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -24,10 +24,8 @@ private  lateinit var communicatior: Communicator
         communicatior = activity as Communicator
 
         view.sendBtn.setOnClickListener{
-           communicatior.passDataCom(view.messageInput.text.toString()+ "monkeys ")
+           communicatior.passDataCom(view.messageInput.text.toString())
         }
-
-
 
         return  view
     }

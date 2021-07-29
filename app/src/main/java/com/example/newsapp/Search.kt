@@ -3,12 +3,10 @@ package com.example.newsapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.jsonData.ArtResponse
 import com.example.newsappwithapi.NewsApi
 import com.example.recyclerview.ItemAdapter
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_search.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,6 +24,7 @@ class Search : AppCompatActivity() {
 
         mbtnSearch.setOnClickListener {
             searchQuery()
+
         }
 
     }
@@ -102,23 +101,23 @@ class Search : AppCompatActivity() {
         itemAdapter.notifyDataSetChanged()
         //  itemAdapter.deleteItems()
     }
-    fun title(): ArrayList<String>{
+    fun title(): ArrayList<String?>{
         return titleList
     }
 
-    fun date(): ArrayList<String>{
+    fun date(): ArrayList<String?>{
         return dateList
     }
 
-    fun url(): ArrayList<String>{
+    fun url(): ArrayList<String?>{
         return urlList
     }
 
-    fun cat(): ArrayList<String>{
+    fun cat(): ArrayList<String?>{
         return categoryList
     }
 
-    fun picture(): ArrayList<String>{
+    fun picture(): ArrayList<String?>{
         return pictureList
     }
 

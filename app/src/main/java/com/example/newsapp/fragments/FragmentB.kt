@@ -5,14 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.*
-import com.example.newsapp.jsonData.ArtResponse
+import com.example.newsapp.jsonData.SearchResponse.QueryResponse
 import com.example.newsappwithapi.NewsApi
 import com.example.recyclerview.ItemAdapter
-import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.fragment_b.*
 import kotlinx.android.synthetic.main.fragment_b.view.*
 import retrofit2.Call
@@ -44,55 +41,96 @@ class FragmentB : Fragment() {
 
 
 
-    fun searchQuery():ArrayList<String>{
-        //Toast.makeText(this, "Search Button Worked", Toast.LENGTH_SHORT).show()
+    fun searchQuery(): ArrayList<String?> {
 
-        var articleClicked = ArticleClicked()
-        var titleList = ArrayList<String>()
-        var dateList = ArrayList<String>()
-        var urlList = ArrayList<String>()
-        var pictureList = ArrayList<String>()
-        var categoryList = ArrayList<String>()
+        val appContext = requireContext().applicationContext
 
-
+        val itemAdapter = ItemAdapter(appContext, title(), date(), cat(),picture(),url())
+        itemAdapter.deleteItems()
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.nytimes.com/svc/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service = retrofit.create(NewsApi::class.java)
-        val call = service.arts()
+        val call = service.SearchQueryApi("trump", "x2iWc8c8nV8F0MKCLZjxFSjjWx4JApsk")
         try {
 
 
-            call.enqueue(object : Callback<ArtResponse> {
+            call.enqueue(object : Callback<QueryResponse> {
 
-                override fun onResponse(call: Call<ArtResponse>, response: Response<ArtResponse>) {
+                override fun onResponse(call: Call<QueryResponse>, response: Response<QueryResponse>) {
 
                     if (response.code() == 200) {
                         val newsResponse = response.body()!!
 
-                        for (i in 0..5) {
-                            titleList.add(newsResponse.results[i].title)
-                        }
-                        for (i in 0..5) {
-                            dateList.add(newsResponse.results[i].published_date)
-                        }
-                        for (i in 0..5) {
-                            urlList.add(newsResponse.results[i].url)
-                        }
-                        for (i in 0..5) {
-                            pictureList.add(newsResponse.results[i].multimedia[0].url) // need to change
+
+                        for (i in 1..newsResponse.response.docs.size-1) {
+                            if (!newsResponse.response.docs[i].abstract.isEmpty()) {
+                                titleList.add(newsResponse.response.docs[i].abstract)
+                            }
+                            if (!newsResponse.response.docs[i].pub_date.isEmpty()) {
+                                dateList.add(newsResponse.response.docs[i].pub_date)
+                            }
+
+                            if (!newsResponse.response.docs[i].web_url.isEmpty()) {
+                                urlList.add(newsResponse.response.docs[i].web_url)
+                            }
+
+                            if (!newsResponse.response.docs[i].section_name.isEmpty()) {
+                                categoryList.add(newsResponse.response.docs[i].section_name)
+                            }
+
+                            if (newsResponse.response.docs[i].multimedia.size > 0  ) {
+                                pictureList.add("https://static01.nyt.com/" +newsResponse.response.docs[i].multimedia[0].url)
+                                println("1: https://static01.nyt.com/" +newsResponse.response.docs[i].multimedia[0].url)
+                            }
+                            else {
+
+                                pictureList.add("https://static01.nyt.com/" )
+                                println("It DID NOT WORK")
+                            }
 
                         }
-                        for (i in 0..6) {
-                            categoryList.add(newsResponse.results[i].section)
 
-                        }
-                        recyclerView()
+
+
+
+
+                        rvSearchQuery.layoutManager = LinearLayoutManager(appContext)
+                        itemAdapter.notifyDataSetChanged()
+
+                        // adapter instance is set to the recyclerview to inflate the items.
+                        rvSearchQuery.adapter = itemAdapter
+                        //  itemAdapter.deleteItems()
+
+//                        for (i in 0..5) {
+//                            titleList.add(newsResponse.section_name)
+//                        }
+//                        for (i in 0..5) {
+//                            //dateList.add(newsResponse.results[i].published_date)
+//                            titleList.add(newsResponse.section_name)
+//
+//                        }
+//                        for (i in 0..5) {
+//                          //  urlList.add(newsResponse.results[i].url)
+//                            titleList.add(newsResponse.section_name)
+//
+//                        }
+//                        for (i in 0..5) {
+//                           // pictureList.add(newsResponse.results[i].multimedia[0].url) // need to change
+//                            titleList.add(newsResponse.section_name)
+//
+//
+//                        }
+//                        for (i in 0..6) {
+//                          //  categoryList.add(newsResponse.results[i].section)
+//                            titleList.add(newsResponse.section_name)
+//                        }
+
                     }
                 }
-                override fun onFailure(call: Call<ArtResponse>, t: Throwable) {
+                override fun onFailure(call: Call<QueryResponse>, t: Throwable) {
                     //   newsData!!.text = t.message
                 }
             })}catch (e: IOException) {
@@ -106,33 +144,27 @@ class FragmentB : Fragment() {
 
     fun recyclerView(){
         // Adapter class is initialized and list is passed in the param.
-        val appContext = requireContext().applicationContext
 
-        val itemAdapter = ItemAdapter(appContext, title(), date(), cat(),picture(),url())
-        rvSearchQuery.layoutManager = LinearLayoutManager(appContext)
 
-        // adapter instance is set to the recyclerview to inflate the items.
-        rvSearchQuery.adapter = itemAdapter
-        itemAdapter.notifyDataSetChanged()
-        //  itemAdapter.deleteItems()
+
     }
-    fun title(): ArrayList<String>{
+    fun title(): ArrayList<String?>{
         return titleList
     }
 
-    fun date(): ArrayList<String>{
+    fun date(): ArrayList<String?>{
         return dateList
     }
 
-    fun url(): ArrayList<String>{
+    fun url(): ArrayList<String?>{
         return urlList
     }
 
-    fun cat(): ArrayList<String>{
+    fun cat(): ArrayList<String?>{
         return categoryList
     }
 
-    fun picture(): ArrayList<String>{
+    fun picture(): ArrayList<String?>{
         return pictureList
     }
 

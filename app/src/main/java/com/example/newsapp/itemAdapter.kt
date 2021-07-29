@@ -14,8 +14,10 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_web_view.view.*
 import kotlinx.android.synthetic.main.item_custom_row.view.*
 
-class ItemAdapter(val context: Context, var title: ArrayList<String> , var publishedDate: ArrayList<String>,
-                  var cat: ArrayList<String>,  var picture: ArrayList<String>, var url: ArrayList<String>) :
+class ItemAdapter(
+    val context: Context, var title: ArrayList<String?>, var publishedDate: ArrayList<String?>,
+    var cat: ArrayList<String?>, var picture: ArrayList<String?>, var url: ArrayList<String?>
+) :
     RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
     var mContext: Context
 
@@ -67,7 +69,9 @@ fun deleteItems() {
 
         holder.cardViewItem.setOnClickListener{
 
-            articleClicked.articleClicked = Url
+            if (Url != null) {
+                articleClicked.articleClicked = Url
+            }
             val intent = Intent(mContext, WebView::class.java)
             mContext.startActivity(intent)
 

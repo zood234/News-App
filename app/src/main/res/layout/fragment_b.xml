@@ -21,10 +21,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSearchQuery"
-        android:layout_width="409dp"
-        android:layout_height="648dp"
-        android:layout_marginBottom="60dp"
-        app:layout_constraintBottom_toBottomOf="@+id/displaymsg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
