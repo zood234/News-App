@@ -22,7 +22,7 @@ import java.io.IOException
 
 class FragmentB : Fragment() {
 
-    var displayMessage: String? = ""
+    var searchQuery: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,10 +31,12 @@ class FragmentB : Fragment() {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_b, container, false)
 
-        displayMessage = arguments?.getString("message")
+        if( arguments?.getString("message") !=null) {
+            searchQuery = arguments?.getString("message")!!
+        }
 
 
-        view.displaymsg.text = displayMessage
+        view.displaymsg.text = searchQuery
         searchQuery()
         return  view
     }
@@ -53,7 +55,7 @@ class FragmentB : Fragment() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service = retrofit.create(NewsApi::class.java)
-        val call = service.SearchQueryApi("trump", "x2iWc8c8nV8F0MKCLZjxFSjjWx4JApsk")
+        val call = service.SearchQueryApi(searchQuery, "x2iWc8c8nV8F0MKCLZjxFSjjWx4JApsk")
         try {
 
 
