@@ -30,7 +30,7 @@ var dateList = ArrayList<String?>()
 var urlList = ArrayList<String?>()
 var pictureList = ArrayList<String?>()
 var categoryList = ArrayList<String?>()
-var searchQuerys = "search/v2/articlesearch.json?fq=trump&fq=travel&facet_field=day_of_week&facet=true&begin_date=20200101&end_date=20210101&api-key=x2iWc8c8nV8F0MKCLZjxFSjjWx4JApsk"
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

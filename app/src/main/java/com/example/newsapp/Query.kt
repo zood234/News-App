@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.myapplication.fragments.FragmentA
 import com.example.myapplication.fragments.FragmentB
+var searchFilters = SearchFilters()
 
 class Query : AppCompatActivity(), Communicator {
     override fun onCreate(savedInstanceState: Bundle?) {

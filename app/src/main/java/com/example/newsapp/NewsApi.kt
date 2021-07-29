@@ -4,7 +4,6 @@ import com.example.newsapp.jsonData.ArtResponse
 import com.example.newsapp.jsonData.MostPopularResponse
 import com.example.newsapp.jsonData.SearchResponse.Doc
 import com.example.newsapp.jsonData.SearchResponse.QueryResponse
-import com.example.newsapp.searchQuerys
 import com.example.newsappwithapi.dataWeb.TopStoriesResponse
 import retrofit2.Call
 import retrofit2.http.GET

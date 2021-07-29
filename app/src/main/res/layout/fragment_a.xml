@@ -5,30 +5,126 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <EditText
+        android:id="@+id/etEndDate"
+        android:layout_width="166dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/etStartDate"
+        app:layout_constraintTop_toBottomOf="@+id/messageInput" />
+
     <EditText
         android:id="@+id/messageInput"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:ems="10"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <Button
         android:id="@+id/sendBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="260dp"
+        android:text="Send"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <EditText
+        android:id="@+id/etStartDate"
+        android:layout_width="166dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="64dp"
+        android:ems="10"
+        android:inputType="date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/messageInput" />
+
+    <TextView
+        android:id="@+id/tvStartDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="288dp"
-        android:text="Send"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="5dp"
+        android:text="Start Date"
+        app:layout_constraintBottom_toTopOf="@+id/etStartDate"
+        app:layout_constraintStart_toStartOf="@+id/etStartDate" />
+
+    <TextView
+        android:id="@+id/tvEndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="End Date"
+        app:layout_constraintBottom_toTopOf="@+id/etEndDate"
+        app:layout_constraintStart_toStartOf="@+id/etEndDate" />
+
+    <CheckBox
+        android:id="@+id/cbArts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Arts"
+        app:layout_constraintBottom_toTopOf="@+id/cbBusiness"
+        app:layout_constraintStart_toStartOf="@+id/etStartDate" />
+
+    <CheckBox
+        android:id="@+id/cbPolitics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="104dp"
+        android:layout_marginBottom="10dp"
+        android:text="Politics"
+        app:layout_constraintBottom_toTopOf="@+id/cbSports"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.611"
-        app:layout_constraintStart_toEndOf="@+id/messageInput"
-        app:layout_constraintTop_toTopOf="@+id/messageInput"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="@+id/etEndDate" />
+
+    <CheckBox
+        android:id="@+id/cbBusiness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Business"
+        app:layout_constraintBottom_toTopOf="@+id/cbEntrepreneur"
+        app:layout_constraintStart_toStartOf="@+id/cbArts" />
+
+    <CheckBox
+        android:id="@+id/cbSports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Sports"
+        app:layout_constraintBottom_toTopOf="@+id/cbTravel"
+        app:layout_constraintStart_toStartOf="@+id/cbPolitics" />
+
+    <CheckBox
+        android:id="@+id/cbEntrepreneur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="Entrepreneur"
+        app:layout_constraintBottom_toTopOf="@+id/sendBtn"
+        app:layout_constraintStart_toStartOf="@+id/cbBusiness" />
+
+    <CheckBox
+        android:id="@+id/cbTravel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="Travel"
+        app:layout_constraintBottom_toTopOf="@+id/sendBtn"
+        app:layout_constraintStart_toStartOf="@+id/cbSports" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

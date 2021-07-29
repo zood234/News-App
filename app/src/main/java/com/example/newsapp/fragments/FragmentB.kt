@@ -55,7 +55,7 @@ class FragmentB : Fragment() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service = retrofit.create(NewsApi::class.java)
-        val call = service.SearchQueryApi(searchQuery, "x2iWc8c8nV8F0MKCLZjxFSjjWx4JApsk")
+        val call = service.SearchQueryApi(searchFilters.searchBox, "x2iWc8c8nV8F0MKCLZjxFSjjWx4JApsk")
         try {
 
 
@@ -69,7 +69,7 @@ class FragmentB : Fragment() {
 
                         for (i in 1..newsResponse.response.docs.size-1) {
                             if (!newsResponse.response.docs[i].abstract.isEmpty()) {
-                                titleList.add(newsResponse.response.docs[i].abstract+ "")
+                                titleList.add(newsResponse.response.docs[i].abstract)
                             }
                             if (!newsResponse.response.docs[i].pub_date.isEmpty()) {
                                 dateList.add(newsResponse.response.docs[i].pub_date)
