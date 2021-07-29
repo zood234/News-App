@@ -69,7 +69,7 @@ class FragmentB : Fragment() {
 
                         for (i in 1..newsResponse.response.docs.size-1) {
                             if (!newsResponse.response.docs[i].abstract.isEmpty()) {
-                                titleList.add(newsResponse.response.docs[i].abstract)
+                                titleList.add(newsResponse.response.docs[i].abstract+ "")
                             }
                             if (!newsResponse.response.docs[i].pub_date.isEmpty()) {
                                 dateList.add(newsResponse.response.docs[i].pub_date)
