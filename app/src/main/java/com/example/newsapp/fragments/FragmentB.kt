@@ -55,7 +55,16 @@ class FragmentB : Fragment() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service = retrofit.create(NewsApi::class.java)
-        val call = service.SearchQueryApi(searchFilters.searchBox, "x2iWc8c8nV8F0MKCLZjxFSjjWx4JApsk")
+//        val call = service.SearchQueryApi(searchFilters.searchBox, searchFilters.arts, searchFilters.politics, searchFilters.business,
+//                                            searchFilters.sports, searchFilters.entrepreneur, searchFilters.travel, searchFilters.starDate,
+//                                            searchFilters.endDate, "x2iWc8c8nV8F0MKCLZjxFSjjWx4JApsk")
+
+        val call = service.SearchQueryApi( searchFilters.searchBox,searchFilters.arts, searchFilters.politics,  searchFilters.business,
+            searchFilters.sports, searchFilters.entrepreneur, searchFilters.travel, searchFilters.starDate,
+            searchFilters.endDate, "x2iWc8c8nV8F0MKCLZjxFSjjWx4JApsk")
+
+        //example start date 20120101
+        //example end date 20120101
         try {
 
 
@@ -94,7 +103,6 @@ class FragmentB : Fragment() {
                             }
 
                         }
-
 
 
 

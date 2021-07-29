@@ -19,32 +19,31 @@ private  lateinit var communicatior: Communicator
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_a, container, false)
+    ): View? {        val view = inflater.inflate(R.layout.fragment_a, container, false)
 
-        communicatior = activity as Communicator
-//        var startDate = tvStartDate
-//        var endDate = tvEndDate
-//        var art = cbArts
-//        var politics = cbPolitics
-//        var business = cbBusiness
-//        var sports = cbSports
-//        var entrepreneur = cbEntrepreneur
-//        var travel = cbTravel
 
         view.sendBtn.setOnClickListener{
-           communicatior.passDataCom(view.messageInput.text.toString())
-            searchFilters.searchBox = view.messageInput.text.toString()
-            searchFilters.starDate = tvStartDate.text.toString()
-            searchFilters.endDate = tvEndDate.text.toString()
 
+            communicatior = activity as Communicator
+            communicatior.passDataCom(view.messageInput.text.toString())
+            searchFilters.searchBox = view.messageInput.text.toString()
+
+
+            // searchFilters.starDate = tvStartDate.text.toString()
+            searchFilters.starDate = "20190101"
+            println("start date " + searchFilters.starDate)
+           // searchFilters.endDate = tvEndDate.text.toString()
+            searchFilters.endDate = "20210707"
+            println("end date " + searchFilters.endDate)
 
             if (cbArts.isChecked){
                 searchFilters.arts = "Arts"
+                println("Search filter " + searchFilters.arts)
             }
             if (cbPolitics.isChecked){
                 searchFilters.politics = "Politics"
+                println("Search filter " + searchFilters.politics)
+
             }
             if (cbBusiness.isChecked){
                 searchFilters.business = "Business"
@@ -58,8 +57,6 @@ private  lateinit var communicatior: Communicator
             if (cbTravel.isChecked){
                 searchFilters.travel = "Travel"
             }
-
-
 
         }
 

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
 
     <androidx.cardview.widget.CardView
@@ -21,17 +22,19 @@
 
             <ImageView
                 android:id="@+id/iv_thumbnail"
-                android:layout_width="62dp"
+                android:layout_width="104dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
                 android:contentDescription="@string/app_name"
                 android:scaleType="fitXY"
-                android:adjustViewBounds="true"
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
                 android:id="@+id/tv_cat"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:textColor="@android:color/black"
                 android:textSize="10sp"
                 android:textStyle="bold"
