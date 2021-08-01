@@ -105,7 +105,7 @@ class Search : AppCompatActivity() {
         return titleList
     }
 
-    fun date(): ArrayList<String?>{
+    fun date(): ArrayList<String>{
         return dateList
     }
 

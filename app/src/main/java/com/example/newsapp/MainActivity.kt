@@ -26,7 +26,7 @@ import java.io.IOException
 
 var articleClicked = ArticleClicked()
 var titleList = ArrayList<String?>()
-var dateList = ArrayList<String?>()
+var dateList = ArrayList<String>()
 var urlList = ArrayList<String?>()
 var pictureList = ArrayList<String?>()
 var categoryList = ArrayList<String?>()
@@ -81,7 +81,8 @@ class MainActivity : AppCompatActivity() {
             R.id.miSearch ->
                 startActivity(i)
                     //Toast.makeText(this, "You clicked on search", Toast.LENGTH_SHORT).show()
-            R.id.miNotifications -> Toast.makeText(this, "You clicked on noifactions", Toast.LENGTH_SHORT).show()
+            R.id.miNotifications ->  startActivity(i)
+
             R.id.miContacts -> Toast.makeText(this, "You clicked on contacts", Toast.LENGTH_SHORT).show()
 
         }
@@ -262,7 +263,7 @@ class MainActivity : AppCompatActivity() {
         return titleList
     }
 
-    fun date(): ArrayList<String?>{
+    fun date(): ArrayList<String>{
         return dateList
     }
 
