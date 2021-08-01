@@ -30,6 +30,25 @@ var dateList = ArrayList<String>()
 var urlList = ArrayList<String?>()
 var pictureList = ArrayList<String?>()
 var categoryList = ArrayList<String?>()
+var compareString = ""
+
+
+
+//Disable button when notifaction is pressed
+//disable slider when search is pressed
+//fix search date
+//fix search so button is clickable when certain factors have been met
+// fix notafaction so it is slideable when certain factors have been met
+//fix help
+//contacts button
+//fix ui
+//test cases
+// unit tests
+//coroutines
+//material design
+//clean code
+//dwayne
+//report
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,7 +102,8 @@ class MainActivity : AppCompatActivity() {
                     //Toast.makeText(this, "You clicked on search", Toast.LENGTH_SHORT).show()
             R.id.miNotifications ->  startActivity(i)
 
-            R.id.miContacts -> Toast.makeText(this, "You clicked on contacts", Toast.LENGTH_SHORT).show()
+            R.id.miHelp -> Toast.makeText(this, "You clicked on help", Toast.LENGTH_SHORT).show()
+            R.id.miAbouts -> Toast.makeText(this, "You clicked on about", Toast.LENGTH_SHORT).show()
 
         }
 

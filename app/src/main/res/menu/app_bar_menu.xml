@@ -14,7 +14,12 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/miContacts"
-        android:title="Contacts"
+        android:id="@+id/miHelp"
+        android:title="Help"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/miAbouts"
+        android:title="About"
         app:showAsAction="never"/>
 </menu>

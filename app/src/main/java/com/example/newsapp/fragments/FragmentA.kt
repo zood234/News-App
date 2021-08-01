@@ -42,60 +42,78 @@ class FragmentA(searchOrNotification: String) : Fragment() {
 
 
         view.switchNotification.setOnCheckedChangeListener({ _, isChecked ->
-            println("The Switch is working")
-            createNotificationChannel()
+            if (isChecked){
+                println("The Switch is on")
+                getfilters()
+                createNotificationChannel()
+            }
+            else{
+                println("The Switch is off")
+                cancellNotification()
+
+            }
+
         })
 
 
         view.sendBtn.setOnClickListener {
-
+            getfilters()
             communicatior = activity as Communicator
             communicatior.passDataCom(view.messageInput.text.toString())
             searchFilters.searchBox = view.messageInput.text.toString()
-            // searchFilters.starDate = tvStartDate.text.toString()
-            searchFilters.starDate = "20190101"
-            println("start date " + searchFilters.starDate)
-            // searchFilters.endDate = tvEndDate.text.toString()
-            searchFilters.endDate = "20210707"
-            println("end date " + searchFilters.endDate)
 
-            if (cbArts.isChecked) {
-                searchFilters.arts = "Arts"
-                println("Search filter " + searchFilters.arts)
-            }
-            if (cbPolitics.isChecked) {
-                searchFilters.politics = "Politics"
-                println("Search filter " + searchFilters.politics)
-
-            }
-            if (cbBusiness.isChecked) {
-                searchFilters.business = "Business"
-            }
-            if (cbSports.isChecked) {
-                searchFilters.sports = "Sports"
-            }
-            if (cbEntrepreneur.isChecked) {
-                searchFilters.entrepreneur = "Entrepreneurs"
-            }
-            if (cbTravel.isChecked) {
-                searchFilters.travel = "Travel"
-            }
 
         }
 
         return view
     }
 
+    fun cancellNotification(){
+        val intent = Intent(context, Receiver()::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT)
+        Log.d("MainActivity", "Delete : " + Date().toString())
+        alarmManager.cancel((pendingIntent))
+    }
+
+    fun getfilters(){
+        searchFilters.starDate = "20190101"
+        println("start date " + searchFilters.starDate)
+        // searchFilters.endDate = tvEndDate.text.toString()
+        searchFilters.endDate = "20210707"
+        println("end date " + searchFilters.endDate)
+
+        if (cbArts.isChecked) {
+            searchFilters.arts = "Arts"
+            println("Search filter " + searchFilters.arts)
+        }
+        if (cbPolitics.isChecked) {
+            searchFilters.politics = "Politics"
+            println("Search filter " + searchFilters.politics)
+
+        }
+        if (cbBusiness.isChecked) {
+            searchFilters.business = "Business"
+        }
+        if (cbSports.isChecked) {
+            searchFilters.sports = "Sports"
+        }
+        if (cbEntrepreneur.isChecked) {
+            searchFilters.entrepreneur = "Entrepreneurs"
+        }
+        if (cbTravel.isChecked) {
+            searchFilters.travel = "Travel"
+        }
+    }
+
     private fun createNotificationChannel() {
-        val seconds = 3 * 1000 // change the 3 to 31536000 when i need to hand in
+        val seconds = 31536000 * 1000 // change the 3 to 31536000 when i need to hand in
         val intent = Intent(context, Receiver::class.java)
         val pendingIntent =
             PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         Log.d("MainActivity", "Create : " + Date().toString())
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP,
-            System.currentTimeMillis() + seconds, 1000 * 60 * 1, pendingIntent
-        )// change the 1 to 525600
+            System.currentTimeMillis() + seconds, 1000 * 60 * 525600, pendingIntent)
         val CHANNEL_ID = "chanel_id_example_01"
         val notificationId = 101
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

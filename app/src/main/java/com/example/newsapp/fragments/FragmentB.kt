@@ -55,10 +55,6 @@ class FragmentB : Fragment() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service = retrofit.create(NewsApi::class.java)
-//        val call = service.SearchQueryApi(searchFilters.searchBox, searchFilters.arts, searchFilters.politics, searchFilters.business,
-//                                            searchFilters.sports, searchFilters.entrepreneur, searchFilters.travel, searchFilters.starDate,
-//                                            searchFilters.endDate, "x2iWc8c8nV8F0MKCLZjxFSjjWx4JApsk")
-
         val call = service.SearchQueryApi( searchFilters.searchBox,searchFilters.arts, searchFilters.politics,  searchFilters.business,
             searchFilters.sports, searchFilters.entrepreneur, searchFilters.travel, searchFilters.starDate,
             searchFilters.endDate, "x2iWc8c8nV8F0MKCLZjxFSjjWx4JApsk")
@@ -112,31 +108,7 @@ class FragmentB : Fragment() {
 
                         // adapter instance is set to the recyclerview to inflate the items.
                         rvSearchQuery.adapter = itemAdapter
-                        //  itemAdapter.deleteItems()
 
-//                        for (i in 0..5) {
-//                            titleList.add(newsResponse.section_name)
-//                        }
-//                        for (i in 0..5) {
-//                            //dateList.add(newsResponse.results[i].published_date)
-//                            titleList.add(newsResponse.section_name)
-//
-//                        }
-//                        for (i in 0..5) {
-//                          //  urlList.add(newsResponse.results[i].url)
-//                            titleList.add(newsResponse.section_name)
-//
-//                        }
-//                        for (i in 0..5) {
-//                           // pictureList.add(newsResponse.results[i].multimedia[0].url) // need to change
-//                            titleList.add(newsResponse.section_name)
-//
-//
-//                        }
-//                        for (i in 0..6) {
-//                          //  categoryList.add(newsResponse.results[i].section)
-//                            titleList.add(newsResponse.section_name)
-//                        }
 
                     }
                 }
@@ -150,14 +122,6 @@ class FragmentB : Fragment() {
         return titleList
     }
 
-
-
-    fun recyclerView(){
-        // Adapter class is initialized and list is passed in the param.
-
-
-
-    }
     fun title(): ArrayList<String?>{
         return titleList
     }
