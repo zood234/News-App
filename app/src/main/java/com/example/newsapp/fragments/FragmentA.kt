@@ -25,7 +25,9 @@ class FragmentA(searchOrNotification: String) : Fragment() {
     var textview_date: TextView? = null
     var cal = Calendar.getInstance()
     var startOrEndDate = ""
-
+    var isFiltersActivated = false
+    var isStartActivated = false
+    var isEndActivated = false
     private lateinit var communicatior: Communicator
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -83,10 +85,24 @@ class FragmentA(searchOrNotification: String) : Fragment() {
         }
 
         view.switchNotification.setOnCheckedChangeListener({ _, isChecked ->
-            if (isChecked){
+            getfilters()
+
+            if (messageInput.text.toString() == "") {
+                Toast.makeText(context, "You need to enter a search query", Toast.LENGTH_SHORT).show()
+                view.switchNotification.setChecked(false)
+            }
+
+            else if (isFiltersActivated == false) {
+                Toast.makeText(context, "You need to select at least  one filters", Toast.LENGTH_SHORT).show()
+                view.switchNotification.setChecked(false)
+
+            }
+
+            else if (isChecked){
                 println("The Switch is on")
-                getfilters()
                 createNotificationChannel()
+                Toast.makeText(context, "Your Notification is set", Toast.LENGTH_SHORT).show()
+
             }
             else{
                 println("The Switch is off")
@@ -99,11 +115,22 @@ class FragmentA(searchOrNotification: String) : Fragment() {
 
         view.sendBtn.setOnClickListener {
             getfilters()
-            communicatior = activity as Communicator
-            communicatior.passDataCom(view.messageInput.text.toString())
-            searchFilters.searchBox = view.messageInput.text.toString()
+            if (messageInput.text.toString() == "") {
+                Toast.makeText(context, "You need to enter a search query", Toast.LENGTH_SHORT).show()
+            }
 
+            else if (isFiltersActivated == false) {
+                Toast.makeText(context, "You need to select at least  one filters", Toast.LENGTH_SHORT).show()
 
+            }
+
+            else {
+                communicatior = activity as Communicator
+                communicatior.passDataCom(view.messageInput.text.toString())
+                searchFilters.searchBox = view.messageInput.text.toString()
+                //isFiltersActivated = false
+
+            }
         }
 
         return view
@@ -121,33 +148,53 @@ class FragmentA(searchOrNotification: String) : Fragment() {
         alarmManager.cancel((pendingIntent))
     }
 
+
+
     fun getfilters(){
-        searchFilters.starDate = etStartDate.text.toString() //"20190101"
-        println("start date " + searchFilters.starDate)
-        // searchFilters.endDate = tvEndDate.text.toString()
-        searchFilters.endDate = etEndDate.text.toString()//"20210707"
-        println("end date " + searchFilters.endDate)
+        if (etStartDate.text.toString() == "") {
+            searchFilters.starDate = "19000101"
+        }
+        else {
+            searchFilters.starDate = etStartDate.text.toString()
+            println("start date " + searchFilters.starDate)
+            isStartActivated = true
+        }
+
+        if (etEndDate.text.toString() == "") {
+            searchFilters.endDate = "20900707"
+            println()
+        }
+        else {
+            searchFilters.endDate = etEndDate.text.toString()
+            println("end date " + searchFilters.endDate)
+            isEndActivated = true
+        }
+
+
 
         if (cbArts.isChecked) {
             searchFilters.arts = "Arts"
-            println("Search filter " + searchFilters.arts)
+             isFiltersActivated = true
         }
         if (cbPolitics.isChecked) {
             searchFilters.politics = "Politics"
-            println("Search filter " + searchFilters.politics)
-
+            isFiltersActivated = true
         }
         if (cbBusiness.isChecked) {
             searchFilters.business = "Business"
+            isFiltersActivated = true
         }
         if (cbSports.isChecked) {
             searchFilters.sports = "Sports"
+            isFiltersActivated = true
         }
         if (cbEntrepreneur.isChecked) {
             searchFilters.entrepreneur = "Entrepreneurs"
+            isFiltersActivated = true
         }
         if (cbTravel.isChecked) {
             searchFilters.travel = "Travel"
+            isFiltersActivated = true
         }
     }
 
