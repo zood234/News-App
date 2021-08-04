@@ -70,7 +70,6 @@ fun deleteItems() {
         holder.tvItem.text = item
         holder.tvDate.text = splitStringDate[0]//PublishedDate
         holder.tv_cat.text = Cat
-        holder.tv_url.text = Picture
 
         val picasso = Picasso.get()
         picasso.load(Picture).into(holder.iv_picture)
@@ -99,7 +98,6 @@ fun deleteItems() {
         val tvItem = view.tv_item_name
         val tvDate = view.tv_date
         val tv_cat = view.tv_cat
-        val tv_url = view.tv_url
         val iv_picture = view.iv_thumbnail
         val cardViewItem = view.card_view_item
 

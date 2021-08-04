@@ -34,10 +34,6 @@ var compareString = ""
 var notifactionOrSlider = ""
 
 
-//fix search so button is clickable when certain factors have been met
-// fix notafaction so it is slideable when certain factors have been met
-//fix help
-//contacts button
 //fix ui
 //test cases
 // unit tests
@@ -83,9 +79,6 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-
-
-
     }
 
 
@@ -97,8 +90,8 @@ class MainActivity : AppCompatActivity() {
                     R.id.miSearch -> startSearch()
                 R.id.miNotifications ->  startNotification()
 
-            R.id.miHelp -> Toast.makeText(this, "You clicked on help", Toast.LENGTH_SHORT).show()
-            R.id.miAbouts -> Toast.makeText(this, "You clicked on about", Toast.LENGTH_SHORT).show()
+            R.id.miHelp -> Toast.makeText(this, "For help please contact help@mynews.com", Toast.LENGTH_SHORT).show()
+            R.id.miAbouts -> Toast.makeText(this, "This app was created for a project on behalf of openclassroom ", Toast.LENGTH_SHORT).show()
 
         }
 
