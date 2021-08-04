@@ -33,13 +33,11 @@ var categoryList = ArrayList<String?>()
 var compareString = ""
 var notifactionOrSlider = ""
 
-
-//fix ui
+//clean code
 //test cases
 // unit tests
 //coroutines
 //material design
-//clean code
 //dwayne
 //report
 
