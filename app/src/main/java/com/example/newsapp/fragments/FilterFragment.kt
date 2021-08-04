@@ -9,11 +9,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.DatePicker
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.example.newsapp.*
 import kotlinx.android.synthetic.main.fragment_a.*
@@ -21,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_a.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FragmentA(searchOrNotification: String) : Fragment() {
+class FilterFragment(searchOrNotification: String) : Fragment() {
     var textview_date: TextView? = null
     var cal = Calendar.getInstance()
     var startOrEndDate = ""
@@ -46,12 +44,11 @@ class FragmentA(searchOrNotification: String) : Fragment() {
             }
         }
         if (notifactionOrSlider == "search") {
-            view.switchNotification.setVisibility(View.GONE)
-
+            view.switchNotification.visibility = View.GONE
         }
 
         if (notifactionOrSlider == "notification") {
-            view.sendBtn.setVisibility(View.GONE)
+            view.sendBtn.visibility = View.GONE
         }
 
         view.etStartDate!!.setOnClickListener{
@@ -66,9 +63,6 @@ class FragmentA(searchOrNotification: String) : Fragment() {
                         cal.get(Calendar.DAY_OF_MONTH)).show()
                 }
             }
-
-
-
         view.etEndDate.setOnClickListener{
             startOrEndDate = "end"
 
@@ -76,41 +70,38 @@ class FragmentA(searchOrNotification: String) : Fragment() {
                 DatePickerDialog(
                     it,
                     dateSetListener,
-                    // set DatePickerDialog to point to today's date when it loads up
                     cal.get(Calendar.YEAR),
                     cal.get(Calendar.MONTH),
                     cal.get(Calendar.DAY_OF_MONTH)).show()
             }
-
         }
 
-        view.switchNotification.setOnCheckedChangeListener({ _, isChecked ->
+        view.switchNotification.setOnCheckedChangeListener { _, isChecked ->
             getfilters()
-
             if (messageInput.text.toString() == "") {
-                Toast.makeText(context, "You need to enter a search query", Toast.LENGTH_SHORT).show()
-                view.switchNotification.setChecked(false)
-            }
+                Toast.makeText(context, "You need to enter a search query", Toast.LENGTH_SHORT)
+                    .show()
+                view.switchNotification.isChecked = false
+            } else if (isFiltersActivated == false) {
+                Toast.makeText(
+                    context,
+                    "You need to select at least  one filters",
+                    Toast.LENGTH_SHORT
+                ).show()
+                view.switchNotification.isChecked = false
 
-            else if (isFiltersActivated == false) {
-                Toast.makeText(context, "You need to select at least  one filters", Toast.LENGTH_SHORT).show()
-                view.switchNotification.setChecked(false)
-
-            }
-
-            else if (isChecked){
+            } else if (isChecked) {
                 println("The Switch is on")
                 createNotificationChannel()
-                Toast.makeText(context, "Your Notification is set", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Your notification is set", Toast.LENGTH_SHORT).show()
 
-            }
-            else{
+            } else {
                 println("The Switch is off")
                 cancellNotification()
 
             }
 
-        })
+        }
 
 
         view.sendBtn.setOnClickListener {
@@ -125,10 +116,9 @@ class FragmentA(searchOrNotification: String) : Fragment() {
             }
 
             else {
+                searchFilters.searchBox = view.messageInput.text.toString()
                 communicatior = activity as Communicator
                 communicatior.passDataCom(view.messageInput.text.toString())
-                searchFilters.searchBox = view.messageInput.text.toString()
-                //isFiltersActivated = false
 
             }
         }
@@ -136,21 +126,14 @@ class FragmentA(searchOrNotification: String) : Fragment() {
         return view
     }
 
-
-
-
-
-
-    fun cancellNotification(){
+    private fun cancellNotification(){
         val intent = Intent(context, Receiver()::class.java)
         val pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT)
         Log.d("MainActivity", "Delete : " + Date().toString())
         alarmManager.cancel((pendingIntent))
     }
 
-
-
-    fun getfilters(){
+    private fun getfilters(){
         if (etStartDate.text.toString() == "") {
             searchFilters.starDate = "19000101"
         }
@@ -159,7 +142,6 @@ class FragmentA(searchOrNotification: String) : Fragment() {
             println("start date " + searchFilters.starDate)
             isStartActivated = true
         }
-
         if (etEndDate.text.toString() == "") {
             searchFilters.endDate = "20900707"
             println()
@@ -169,9 +151,6 @@ class FragmentA(searchOrNotification: String) : Fragment() {
             println("end date " + searchFilters.endDate)
             isEndActivated = true
         }
-
-
-
         if (cbArts.isChecked) {
             searchFilters.arts = "Arts"
              isFiltersActivated = true
@@ -219,21 +198,18 @@ class FragmentA(searchOrNotification: String) : Fragment() {
             val notificationManager: NotificationManager =
                 requireActivity().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
-
-
         }
-
     }
     private fun updateDateInView() {
         val myFormat = "yyyyMMdd" // mention the format you need
         val sdf = SimpleDateFormat(myFormat, Locale.US)
 
         if(startOrEndDate == "start"){
-            etStartDate.setText(sdf.format(cal.getTime()))
+            etStartDate.setText(sdf.format(cal.time))
         }
 
         if(startOrEndDate == "end"){
-            etEndDate.setText(sdf.format(cal.getTime()))
+            etEndDate.setText(sdf.format(cal.time))
 
         }
     }

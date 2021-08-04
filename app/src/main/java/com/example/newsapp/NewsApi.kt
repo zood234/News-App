@@ -22,15 +22,15 @@ interface NewsApi {
    @GET("search/v2/articlesearch.json?fq=trump&fq=travel&facet_field=day_of_week&facet=true&begin_date=20200101&end_date=20210101&api-key=x2iWc8c8nV8F0MKCLZjxFSjjWx4JApsk")
    fun search(): Call<QueryResponse>
 
-    @GET("search/v2/articlesearch.json")
-    fun SearchQueryApi(@Query("fq") search: String,
+    @GET("search/v2/articlesearch.json?facet_filter=true")
+    fun SearchQueryApi(@Query("q") search: String,
                        @Query("fq") arts: String,
                        @Query("fq") politics: String,
                        @Query("fq") bis: String,
                        @Query("fq") sports: String,
                        @Query("fq") entrepreneurs: String,
                        @Query("fq") travel: String,
-                       @Query("facet_field=day_of_week&facet=true&begin_date") startDate: String,
+                       @Query("begin_date") startDate: String,
                        @Query("end_date") endDate: String,
                        @Query("api-key") Key: String):
             Call<QueryResponse>

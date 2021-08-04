@@ -1,5 +1,6 @@
 package com.example.newsapp
 
+//stores the filters for the search
 class SearchFilters {
     var searchBox = ""
     var starDate = ""

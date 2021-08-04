@@ -50,8 +50,8 @@
 
             <TextView
                 android:id="@+id/tv_item_name"
-                android:layout_width="271dp"
-                android:layout_height="65dp"
+                android:layout_width="262dp"
+                android:layout_height="66dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginBottom="4dp"
                 android:textColor="@android:color/black"

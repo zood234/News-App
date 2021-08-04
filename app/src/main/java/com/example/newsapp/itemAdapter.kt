@@ -25,13 +25,7 @@ class ItemAdapter(
     var cat: ArrayList<String?>, var picture: ArrayList<String?>, var url: ArrayList<String?>
 ) :
     RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
-    var mContext: Context
-
-    init {
-
-         mContext = context
-
-    }
+    var mContext: Context = context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -57,7 +51,6 @@ fun deleteItems() {
 }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
 
         val item = title.get(position)
         val PublishedDate = publishedDate.get(position)

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.webkit.WebView
 import android.webkit.WebViewClient
 
+//launches a webview with the article that was clicked
 class WebView : AppCompatActivity() {
     private val webView: WebView? = null
     override fun onCreate(savedInstanceState: Bundle?) {

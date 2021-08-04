@@ -10,38 +10,30 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.example.myapplication.fragments.FragmentA
-import com.example.myapplication.fragments.FragmentB
-import kotlinx.android.synthetic.main.fragment_a.*
-import kotlinx.android.synthetic.main.fragment_a.view.*
+import com.example.myapplication.fragments.FilterFragment
+import com.example.myapplication.fragments.RecyclerViewFragment
 import java.util.*
 
 var searchFilters = SearchFilters()
 lateinit var alarmManager : AlarmManager
 
-class Query() : AppCompatActivity(), Communicator {
-//    init {
-//        var searchOrNotification = searchOrNotification
-//
-//    }
+class Query : AppCompatActivity(), Communicator {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+   override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_query)
         alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        val fragmentA = FragmentA("search") //search use this to activate button
+        val fragmentA = FilterFragment("search") //search use this to activate button
         supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,fragmentA).commit()
-
-
-    }
+           }
 
 
     override fun passDataCom(editTextInput: String) {
         val bundle = Bundle()
         bundle.putString("message", editTextInput)
         val transaction = this.supportFragmentManager.beginTransaction()
-        val fragmentB = FragmentB()
+        val fragmentB = RecyclerViewFragment()
         fragmentB.arguments = bundle
         transaction.replace(R.id.fragmentContainer,fragmentB)
         transaction.commit()
@@ -66,8 +58,5 @@ class Query() : AppCompatActivity(), Communicator {
             val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
-
-
     }
-
 }

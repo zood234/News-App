@@ -19,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.util.*
 
-class Receiver() : BroadcastReceiver(){
+class Receiver : BroadcastReceiver(){
     val CHANNEL_ID = "chanel_id_example_01"
     val notificationId = 101
 
@@ -48,7 +48,7 @@ class Receiver() : BroadcastReceiver(){
     }
 
 
-    fun searchQuery(): ArrayList<String?> {
+    private fun searchQuery(){
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.nytimes.com/svc/")
@@ -59,8 +59,6 @@ class Receiver() : BroadcastReceiver(){
             searchFilters.sports, searchFilters.entrepreneur, searchFilters.travel, searchFilters.starDate,
             searchFilters.endDate, "x2iWc8c8nV8F0MKCLZjxFSjjWx4JApsk")
 
-        //example start date 20120101
-        //example end date 20120101
         try {
 
 
@@ -100,43 +98,15 @@ class Receiver() : BroadcastReceiver(){
 
                         }
 
-
-
-
-
                     }
                 }
                 override fun onFailure(call: Call<QueryResponse>, t: Throwable) {
-                    //   newsData!!.text = t.message
                 }
             })}catch (e: IOException) {
             e.printStackTrace()
 
         }
-        return titleList
     }
-
-    fun title(): ArrayList<String?>{
-        return titleList
-    }
-
-    fun date(): ArrayList<String>{
-        return dateList
-    }
-
-    fun url(): ArrayList<String?>{
-        return urlList
-    }
-
-    fun cat(): ArrayList<String?>{
-        return categoryList
-    }
-
-    fun picture(): ArrayList<String?>{
-        return pictureList
-    }
-
-
 
 
 }

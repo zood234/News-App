@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 
 
-class FragmentB : Fragment() {
+class RecyclerViewFragment : Fragment() {
 
     var searchQuery: String = ""
 
@@ -35,21 +35,18 @@ class FragmentB : Fragment() {
             searchQuery = arguments?.getString("message")!!
         }
 
-
         view.displaymsg.text = searchQuery
-        searchQuery()
+        searchQuery(titleList, dateList, categoryList, pictureList, urlList)
         return  view
     }
 
-
-
-    fun searchQuery(): ArrayList<String?> {
+    private fun searchQuery(title: ArrayList<String?>, publishedDate: ArrayList<String>,
+                            cat: ArrayList<String?>, picture: ArrayList<String?>, url: ArrayList<String?>
+    ){
 
         val appContext = requireContext().applicationContext
-
-        val itemAdapter = ItemAdapter(appContext, title(), date(), cat(),picture(),url())
+        val itemAdapter = ItemAdapter(appContext, titleList, publishedDate, cat, pictureList,url)
         itemAdapter.deleteItems()
-
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.nytimes.com/svc/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -58,11 +55,7 @@ class FragmentB : Fragment() {
         val call = service.SearchQueryApi( searchFilters.searchBox,searchFilters.arts, searchFilters.politics,  searchFilters.business,
             searchFilters.sports, searchFilters.entrepreneur, searchFilters.travel, searchFilters.starDate,
             searchFilters.endDate, "x2iWc8c8nV8F0MKCLZjxFSjjWx4JApsk")
-
-        //example start date 20120101
-        //example end date 20120101
         try {
-
 
             call.enqueue(object : Callback<QueryResponse> {
 
@@ -70,8 +63,6 @@ class FragmentB : Fragment() {
 
                     if (response.code() == 200) {
                         val newsResponse = response.body()!!
-
-
                         for (i in 1..newsResponse.response.docs.size-1) {
                             if (!newsResponse.response.docs[i].abstract.isEmpty()) {
                                 titleList.add(newsResponse.response.docs[i].abstract)
@@ -90,60 +81,24 @@ class FragmentB : Fragment() {
 
                             if (newsResponse.response.docs[i].multimedia.size > 0  ) {
                                 pictureList.add("https://static01.nyt.com/" +newsResponse.response.docs[i].multimedia[0].url)
-                                println("1: https://static01.nyt.com/" +newsResponse.response.docs[i].multimedia[0].url)
                             }
                             else {
-
                                 pictureList.add("https://static01.nyt.com/" )
-                                println("It DID NOT WORK")
                             }
 
                         }
-
-
-
-
                         rvSearchQuery.layoutManager = LinearLayoutManager(appContext)
                         itemAdapter.notifyDataSetChanged()
 
                         // adapter instance is set to the recyclerview to inflate the items.
                         rvSearchQuery.adapter = itemAdapter
-
-
                     }
                 }
                 override fun onFailure(call: Call<QueryResponse>, t: Throwable) {
-                    //   newsData!!.text = t.message
                 }
             })}catch (e: IOException) {
             e.printStackTrace()
-
         }
-        return titleList
     }
-
-    fun title(): ArrayList<String?>{
-        return titleList
-    }
-
-    fun date(): ArrayList<String>{
-        return dateList
-    }
-
-    fun url(): ArrayList<String?>{
-        return urlList
-    }
-
-    fun cat(): ArrayList<String?>{
-        return categoryList
-    }
-
-    fun picture(): ArrayList<String?>{
-        return pictureList
-    }
-
-
-
-
 
 }
