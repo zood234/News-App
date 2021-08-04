@@ -31,12 +31,9 @@ var urlList = ArrayList<String?>()
 var pictureList = ArrayList<String?>()
 var categoryList = ArrayList<String?>()
 var compareString = ""
+var notifactionOrSlider = ""
 
 
-
-//Disable button when notifaction is pressed
-//disable slider when search is pressed
-//fix search date
 //fix search so button is clickable when certain factors have been met
 // fix notafaction so it is slideable when certain factors have been met
 //fix help
@@ -97,10 +94,8 @@ class MainActivity : AppCompatActivity() {
     val i = Intent(this@MainActivity, Query::class.java)
 
         when(item.itemId){
-            R.id.miSearch ->
-                startActivity(i)
-                    //Toast.makeText(this, "You clicked on search", Toast.LENGTH_SHORT).show()
-            R.id.miNotifications ->  startActivity(i)
+                    R.id.miSearch -> startSearch()
+                R.id.miNotifications ->  startNotification()
 
             R.id.miHelp -> Toast.makeText(this, "You clicked on help", Toast.LENGTH_SHORT).show()
             R.id.miAbouts -> Toast.makeText(this, "You clicked on about", Toast.LENGTH_SHORT).show()
@@ -108,6 +103,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         return true
+    }
+
+    fun startNotification(){
+        notifactionOrSlider = "notification"
+        val i = Intent(this@MainActivity, Query::class.java)
+        startActivity(i)
+    }
+
+    fun startSearch(){
+        notifactionOrSlider = "search"
+        val i = Intent(this@MainActivity, Query::class.java)
+        startActivity(i)
     }
 
     fun getArts(): ArrayList<String?>{
