@@ -6,11 +6,8 @@ import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.jsonData.SearchResponse.QueryResponse
 import com.example.newsappwithapi.NewsApi
-import com.example.recyclerview.ItemAdapter
-import kotlinx.android.synthetic.main.fragment_b.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,7 +46,6 @@ class Receiver : BroadcastReceiver(){
 
 
     private fun searchQuery(){
-
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.nytimes.com/svc/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -107,6 +103,4 @@ class Receiver : BroadcastReceiver(){
 
         }
     }
-
-
 }

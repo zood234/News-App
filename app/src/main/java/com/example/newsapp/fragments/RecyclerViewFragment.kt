@@ -65,6 +65,7 @@ class RecyclerViewFragment : Fragment() {
                         val newsResponse = response.body()!!
                         for (i in 1..newsResponse.response.docs.size-1) {
                             if (!newsResponse.response.docs[i].abstract.isEmpty()) {
+                                println(newsResponse.response.docs[i].section_name)
                                 titleList.add(newsResponse.response.docs[i].abstract)
                             }
                             if (!newsResponse.response.docs[i].pub_date.isEmpty()) {

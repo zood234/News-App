@@ -1,6 +1,5 @@
 package com.example.newsapp
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -13,13 +12,10 @@ import com.example.newsapp.jsonData.ArtResponse
 import com.example.newsapp.jsonData.MostPopularResponse
 import com.example.newsappwithapi.NewsApi
 import com.example.newsappwithapi.dataWeb.TopStoriesResponse
-
 import com.example.recyclerview.ItemAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-
-
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,10 +33,10 @@ var pictureList = ArrayList<String?>()
 var categoryList = ArrayList<String?>()
 
 //add comments
+//sort all my files out
 //test cases
 // unit tests
 
-//material design
 //report
 
 class MainActivity : AppCompatActivity() {
@@ -78,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//Top main menu
+    //Main menu
     override fun onOptionsItemSelected(item: MenuItem): Boolean{
     val i = Intent(this@MainActivity, Query::class.java)
 
