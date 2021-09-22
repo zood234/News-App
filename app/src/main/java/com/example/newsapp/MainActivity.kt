@@ -8,6 +8,9 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.newsapp.ArticleClicked
+import com.example.newsapp.Query
+import com.example.newsapp.R
 import com.example.newsapp.jsonData.ArtResponse
 import com.example.newsapp.jsonData.MostPopularResponse
 import com.example.newsappwithapi.NewsApi
