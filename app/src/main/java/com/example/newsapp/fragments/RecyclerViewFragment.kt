@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.*
 import com.example.newsapp.jsonData.SearchResponse.QueryResponse
@@ -37,6 +38,7 @@ class RecyclerViewFragment : Fragment() {
 
         view.displaymsg.text = searchQuery
         searchQuery(titleList, dateList, categoryList, pictureList, urlList)
+        view.displaymsg.text = searchQuery
         return  view
     }
 
@@ -63,6 +65,11 @@ class RecyclerViewFragment : Fragment() {
 
                     if (response.code() == 200) {
                         val newsResponse = response.body()!!
+                        if (newsResponse.response.docs.isEmpty()){
+                            println("NOTHING IN THE SEARCH")
+                            Toast.makeText(appContext, "There were no results for : $searchQuery", Toast.LENGTH_LONG).show()
+
+                        }
                         for (i in 1..newsResponse.response.docs.size-1) {
                             if (!newsResponse.response.docs[i].abstract.isEmpty()) {
                                 println(newsResponse.response.docs[i].section_name)
@@ -91,7 +98,6 @@ class RecyclerViewFragment : Fragment() {
                         rvSearchQuery.layoutManager = LinearLayoutManager(appContext)
                         itemAdapter.notifyDataSetChanged()
 
-                        // adapter instance is set to the recyclerview to inflate the items.
                         rvSearchQuery.adapter = itemAdapter
                     }
                 }

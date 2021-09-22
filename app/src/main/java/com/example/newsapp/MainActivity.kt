@@ -32,12 +32,6 @@ var urlList = ArrayList<String?>()
 var pictureList = ArrayList<String?>()
 var categoryList = ArrayList<String?>()
 
-//add comments
-//sort all my files out
-//test cases
-// unit tests
-
-//report
 
 class MainActivity : AppCompatActivity() {
 

@@ -24,7 +24,7 @@ class Query : AppCompatActivity(), Communicator {
         setContentView(R.layout.activity_query)
         alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        val fragmentA = FilterFragment("search") //search use this to activate button
+        val fragmentA = FilterFragment() //search use this to activate button
         supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,fragmentA).commit()
            }
 

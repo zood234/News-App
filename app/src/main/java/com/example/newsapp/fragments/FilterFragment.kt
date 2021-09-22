@@ -19,19 +19,17 @@ import kotlinx.android.synthetic.main.fragment_a.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FilterFragment(searchOrNotification: String) : Fragment() {
+class FilterFragment : Fragment() {
     var textview_date: TextView? = null
     var cal = Calendar.getInstance()
     var startOrEndDate = ""
-    var isFiltersActivated = false
-    var isStartActivated = false
-    var isEndActivated = false
     private lateinit var communicatior: Communicator
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_a, container, false)
+        resetFilters()
         textview_date = this.etStartDate
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
@@ -78,11 +76,13 @@ class FilterFragment(searchOrNotification: String) : Fragment() {
 
         view.switchNotification.setOnCheckedChangeListener { _, isChecked ->
             getfilters()
+            defaultDate()
+            var filtersVaild = filtersActivated(cbArts.isChecked,cbPolitics.isChecked,cbBusiness.isChecked,cbSports.isChecked,cbEntrepreneur.isChecked,cbTravel.isChecked)
             if (messageInput.text.toString() == "") {
                 Toast.makeText(context, "You need to enter a search query", Toast.LENGTH_SHORT)
                     .show()
                 view.switchNotification.isChecked = false
-            } else if (isFiltersActivated == false) {
+            } else if (filtersVaild == false) {
                 Toast.makeText(
                     context,
                     "You need to select at least  one filters",
@@ -97,7 +97,7 @@ class FilterFragment(searchOrNotification: String) : Fragment() {
 
             } else {
                 println("The Switch is off")
-                cancellNotification()
+                cancelNotification()
 
             }
 
@@ -106,13 +106,20 @@ class FilterFragment(searchOrNotification: String) : Fragment() {
 
         view.sendBtn.setOnClickListener {
             getfilters()
-            if (messageInput.text.toString() == "") {
+         //  defaultDate()
+        var validator = SearchValidator()
+            var filtersVaild = validator.filtersActivated(cbArts.isChecked,cbPolitics.isChecked,cbBusiness.isChecked,cbSports.isChecked,cbEntrepreneur.isChecked,cbTravel.isChecked)
+            searchFilters.starDate = validator.getStartDate(etStartDate.text.toString())
+            searchFilters.endDate = validator.getEndDate(etEndDate.text.toString())
+         //   var filtersVaild = filtersActivated(cbArts.isChecked,cbPolitics.isChecked,cbBusiness.isChecked,cbSports.isChecked,cbEntrepreneur.isChecked,cbTravel.isChecked)
+           var searchQuery = validator.getSearchQuery(messageInput.text.toString())
+
+            if (searchQuery == false) {
                 Toast.makeText(context, "You need to enter a search query", Toast.LENGTH_SHORT).show()
             }
 
-            else if (isFiltersActivated == false) {
-                Toast.makeText(context, "You need to select at least  one filters", Toast.LENGTH_SHORT).show()
-
+            else if (filtersVaild == false) {
+                Toast.makeText(context, "You need to select at least one filters", Toast.LENGTH_SHORT).show()
             }
 
             else {
@@ -126,21 +133,20 @@ class FilterFragment(searchOrNotification: String) : Fragment() {
         return view
     }
 
-    private fun cancellNotification(){
+    private fun cancelNotification(){
         val intent = Intent(context, Receiver()::class.java)
         val pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT)
         Log.d("MainActivity", "Delete : " + Date().toString())
         alarmManager.cancel((pendingIntent))
     }
 
-    private fun getfilters(){
+    private fun defaultDate(){
         if (etStartDate.text.toString() == "") {
             searchFilters.starDate = "19000101"
         }
         else {
             searchFilters.starDate = etStartDate.text.toString()
             println("start date " + searchFilters.starDate)
-            isStartActivated = true
         }
         if (etEndDate.text.toString() == "") {
             searchFilters.endDate = "20900707"
@@ -149,33 +155,38 @@ class FilterFragment(searchOrNotification: String) : Fragment() {
         else {
             searchFilters.endDate = etEndDate.text.toString()
             println("end date " + searchFilters.endDate)
-            isEndActivated = true
-        }
-        if (cbArts.isChecked) {
-            searchFilters.arts = "Arts"
-             isFiltersActivated = true
-        }
-        if (cbPolitics.isChecked) {
-            searchFilters.politics = "Politics"
-            isFiltersActivated = true
-        }
-        if (cbBusiness.isChecked) {
-            searchFilters.business = "Business"
-            isFiltersActivated = true
-        }
-        if (cbSports.isChecked) {
-            searchFilters.sports = "Sports"
-            isFiltersActivated = true
-        }
-        if (cbEntrepreneur.isChecked) {
-            searchFilters.entrepreneur = "Entrepreneurs"
-            isFiltersActivated = true
-        }
-        if (cbTravel.isChecked) {
-            searchFilters.travel = "Travel"
-            isFiltersActivated = true
         }
     }
+    private fun filtersActivated(artsFilter:Boolean, politicsFilter:Boolean, buisinessFilter:Boolean, sportsFilter:Boolean,
+    entrepreneurFilter:Boolean, travelFilter:Boolean):Boolean{
+
+        if  (artsFilter == true){
+            return true
+        }
+        else if  (politicsFilter == true){
+            return true
+        }
+        else if  (buisinessFilter == true){
+            return true
+        }
+        else if  (sportsFilter == true){
+            return true
+        }
+        else if  (entrepreneurFilter == true){
+            return true
+        }
+        else return travelFilter == true
+    }
+
+    private  fun isSearchEmpty(searchString: String):Boolean{
+        if (searchString == "") {
+            return true
+        }
+        else
+        return false
+    }
+
+
 
     private fun createNotificationChannel() {
         val seconds = 31536000 * 1000 // change the 3 to 31536000 when i need to hand in
@@ -187,7 +198,6 @@ class FilterFragment(searchOrNotification: String) : Fragment() {
             AlarmManager.RTC_WAKEUP,
             System.currentTimeMillis() + seconds, 1000 * 60 * 525600, pendingIntent)
         val CHANNEL_ID = "chanel_id_example_01"
-        val notificationId = 101
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Notification Title"
             val descriptionText = "Notification Description"
@@ -213,4 +223,36 @@ class FilterFragment(searchOrNotification: String) : Fragment() {
 
         }
     }
-}
+
+    private fun getfilters(){
+
+        if (cbArts.isChecked) {
+            searchFilters.arts = "Arts"
+        }
+        if (cbPolitics.isChecked) {
+            searchFilters.politics = "Politics"
+        }
+        if (cbBusiness.isChecked) {
+            searchFilters.business = "Business"
+        }
+        if (cbSports.isChecked) {
+            searchFilters.sports = "Sports"
+        }
+        if (cbEntrepreneur.isChecked) {
+            searchFilters.entrepreneur = "Entrepreneurs"
+        }
+        if (cbTravel.isChecked) {
+            searchFilters.travel = "Travel"
+        }
+    }
+    private fun resetFilters(){
+            searchFilters.starDate = ""
+            searchFilters.endDate = ""
+            searchFilters.arts = ""
+            searchFilters.politics = ""
+            searchFilters.business = ""
+            searchFilters.sports = ""
+            searchFilters.entrepreneur = ""
+            searchFilters.travel = ""
+
+}}
