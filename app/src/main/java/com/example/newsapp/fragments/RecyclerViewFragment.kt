@@ -24,7 +24,7 @@ import java.io.IOException
 class RecyclerViewFragment : Fragment() {
 
     var searchQuery: String = ""
-
+    var isSearchEmpty: Boolean = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -68,8 +68,10 @@ class RecyclerViewFragment : Fragment() {
                         if (newsResponse.response.docs.isEmpty()){
                             println("NOTHING IN THE SEARCH")
                             Toast.makeText(appContext, "There were no results for : $searchQuery", Toast.LENGTH_LONG).show()
+                            isSearchEmpty = true
 
                         }
+                        else{
                         for (i in 1..newsResponse.response.docs.size-1) {
                             if (!newsResponse.response.docs[i].abstract.isEmpty()) {
                                 println(newsResponse.response.docs[i].section_name)
@@ -99,7 +101,7 @@ class RecyclerViewFragment : Fragment() {
                         itemAdapter.notifyDataSetChanged()
 
                         rvSearchQuery.adapter = itemAdapter
-                    }
+                    }}
                 }
                 override fun onFailure(call: Call<QueryResponse>, t: Throwable) {
                 }

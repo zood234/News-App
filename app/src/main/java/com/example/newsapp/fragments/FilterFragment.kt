@@ -116,6 +116,7 @@ class FilterFragment : Fragment() {
 
             if (searchQuery == false) {
                 Toast.makeText(context, "You need to enter a search query", Toast.LENGTH_SHORT).show()
+           // showToast(buildToastMessage("You need to enter a search query"))
             }
 
             else if (filtersVaild == false) {
@@ -123,6 +124,7 @@ class FilterFragment : Fragment() {
             }
 
             else {
+                Toast.makeText(context, "The search was successful", Toast.LENGTH_SHORT).show()
                 searchFilters.searchBox = view.messageInput.text.toString()
                 communicatior = activity as Communicator
                 communicatior.passDataCom(view.messageInput.text.toString())
@@ -255,4 +257,7 @@ class FilterFragment : Fragment() {
             searchFilters.entrepreneur = ""
             searchFilters.travel = ""
 
-}}
+}
+
+}
+

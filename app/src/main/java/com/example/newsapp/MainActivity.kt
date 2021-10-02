@@ -78,8 +78,8 @@ class MainActivity : AppCompatActivity() {
         when(item.itemId){
                     R.id.miSearch -> startSearch()
                 R.id.miNotifications ->  startNotification()
-            R.id.miHelp -> Toast.makeText(this, "For help please contact help@mynews.com", Toast.LENGTH_SHORT).show()
-            R.id.miAbouts -> Toast.makeText(this, "This app was created for a project on behalf of openclassroom ", Toast.LENGTH_SHORT).show()
+            R.id.miHelp -> Toast.makeText(this, "For help please contact help@mynews.com", Toast.LENGTH_LONG).show()
+            R.id.miAbouts -> Toast.makeText(this, "This app was created for a project on behalf of openclassroom", Toast.LENGTH_SHORT).show()
 
         }
         return true
@@ -132,8 +132,11 @@ class MainActivity : AppCompatActivity() {
                     }
                     recyclerView(titleList,dateList, categoryList, pictureList, urlList)
                 }
+
             }
             override fun onFailure(call: Call<ArtResponse>, t: Throwable) {
+                Toast.makeText(applicationContext, "There are network connectivity problems", Toast.LENGTH_LONG).show()
+                    println("There are network connectivity problems")
             }
         })}catch (e: IOException) {
             e.printStackTrace()
@@ -186,6 +189,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             override fun onFailure(call: Call<MostPopularResponse>, t: Throwable) {
+                Toast.makeText(applicationContext, "There are network connectivity problems", Toast.LENGTH_LONG).show()
+                println("There are network connectivity problems")
             }
         })
         return
@@ -228,6 +233,54 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             override fun onFailure(call: Call<TopStoriesResponse>, t: Throwable) {
+                Toast.makeText(applicationContext, "There are network connectivity problems", Toast.LENGTH_LONG).show()
+                println("There are network connectivity problems")
+            }
+        })
+    }
+
+    //Refactored one
+    private suspend fun runApiQuery(section: String, imageVariableUsed:String){
+        var section = "TopStoriesResponse"
+        var imageVariableUsed = "newsResponse.results[i].multimedia[0].url"
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://api.nytimes.com/svc/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val service = retrofit.create(NewsApi::class.java)
+
+        val call = service.topStories()
+        call.enqueue(object : Callback<TopStoriesResponse> {
+
+            override fun onResponse(call: Call<TopStoriesResponse>, response: Response<TopStoriesResponse>) {
+
+                if (response.code() == 200) {
+                    val newsResponse = response.body()!!
+
+                    for (i in 1..newsResponse.results.size-1) {
+                        titleList.add(newsResponse.results[i].title)
+                    }
+                    for (i in 1..newsResponse.results.size-1) {
+                        dateList.add(newsResponse.results[i].published_date)
+                    }
+                    for (i in 1..newsResponse.results.size-1) {
+                        urlList.add(newsResponse.results[i].url)
+                    }
+                    for (i in 1..newsResponse.results.size-1) {
+                        pictureList.add(newsResponse.results[i].multimedia[0].url) // need to change
+
+                    }
+                    for (i in 1..newsResponse.results.size-1) {
+                        categoryList.add(newsResponse.results[i].section)
+
+                    }
+                    recyclerView(titleList,dateList, categoryList, pictureList, urlList)
+                }
+            }
+            override fun onFailure(call: Call<TopStoriesResponse>, t: Throwable) {
+                Toast.makeText(applicationContext, "There are network connectivity problems", Toast.LENGTH_LONG).show()
+                println("There are network connectivity problems")
             }
         })
     }
@@ -243,6 +296,9 @@ class MainActivity : AppCompatActivity() {
         //updates the recycler view
         itemAdapter.notifyDataSetChanged()
     }
+
+
+
 
     //inflates the menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

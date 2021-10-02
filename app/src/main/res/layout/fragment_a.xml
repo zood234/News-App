@@ -2,18 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/filterFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
 
 
     <EditText
         android:id="@+id/messageInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
         android:ems="10"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,10 +23,10 @@
         android:id="@+id/sendBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="260dp"
-        android:text="Search"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginBottom="260dp"
+        android:text="Search"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="0dp" />
 
@@ -37,27 +36,30 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="64dp"
-        android:ems="10"
         android:clickable="true"
+        android:ems="10"
         android:focusable="false"
         android:inputType="date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/messageInput" />
+
     <EditText
         android:id="@+id/etEndDate"
         android:layout_width="166dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="date"
         android:clickable="true"
+        android:ems="10"
         android:focusable="false"
+        android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/etStartDate"
         app:layout_constraintTop_toBottomOf="@+id/messageInput" />
+
     <TextView
+        android:id="@+id/tvStartDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
@@ -66,6 +68,7 @@
         app:layout_constraintStart_toStartOf="@+id/etStartDate" />
 
     <TextView
+        android:id="@+id/tvEndDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
