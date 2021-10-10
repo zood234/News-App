@@ -2,27 +2,28 @@ package com.example.newsapp
 
 import kotlinx.android.synthetic.main.fragment_a.*
 
+//Checks to that the search is valid
 class SearchValidator() {
 
      fun filtersActivated(artsFilter:Boolean, politicsFilter:Boolean, buisinessFilter:Boolean, sportsFilter:Boolean,
                                  entrepreneurFilter:Boolean, travelFilter:Boolean):Boolean{
 
-        if  (artsFilter == true){
+        if  (artsFilter){
             return true
         }
-        else if  (politicsFilter == true){
+        else if  (politicsFilter){
             return true
         }
-        else if  (buisinessFilter == true){
+        else if  (buisinessFilter){
             return true
         }
-        else if  (sportsFilter == true){
+        else if  (sportsFilter){
             return true
         }
-        else if  (entrepreneurFilter == true){
+        else if  (entrepreneurFilter){
             return true
         }
-        else return travelFilter == true
+        else return travelFilter
     }
 
     fun getStartDate(startDate:String):String{
@@ -41,11 +42,6 @@ class SearchValidator() {
 
     fun getSearchQuery(search: String):Boolean {
 
-        if (search == "") {
-       return false
-        }
-        else {
-            return true
-        }
+        return search != ""
     }
 }
