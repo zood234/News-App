@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class FilterFragment : Fragment() {
-    var textview_date: TextView? = null
+    private var textview_date: TextView? = null
     var cal = Calendar.getInstance()
     var startOrEndDate = ""
     private lateinit var communicatior: Communicator
@@ -77,7 +77,7 @@ class FilterFragment : Fragment() {
         view.switchNotification.setOnCheckedChangeListener { _, isChecked ->
             getfilters()
             defaultDate()
-            var filtersVaild = filtersActivated(cbArts.isChecked,cbPolitics.isChecked,cbBusiness.isChecked,cbSports.isChecked,cbEntrepreneur.isChecked,cbTravel.isChecked)
+            val filtersVaild = filtersActivated(cbArts.isChecked,cbPolitics.isChecked,cbBusiness.isChecked,cbSports.isChecked,cbEntrepreneur.isChecked,cbTravel.isChecked)
             if (messageInput.text.toString() == "") {
                 Toast.makeText(context, "You need to enter a search query", Toast.LENGTH_SHORT)
                     .show()
@@ -106,17 +106,15 @@ class FilterFragment : Fragment() {
 
         view.sendBtn.setOnClickListener {
             getfilters()
-         //  defaultDate()
-        var validator = SearchValidator()
-            var filtersVaild = validator.filtersActivated(cbArts.isChecked,cbPolitics.isChecked,cbBusiness.isChecked,cbSports.isChecked,cbEntrepreneur.isChecked,cbTravel.isChecked)
+        val validator = SearchValidator()
+            val filtersVaild = validator.filtersActivated(cbArts.isChecked,cbPolitics.isChecked,cbBusiness.isChecked,cbSports.isChecked,cbEntrepreneur.isChecked,cbTravel.isChecked)
             searchFilters.starDate = validator.getStartDate(etStartDate.text.toString())
             searchFilters.endDate = validator.getEndDate(etEndDate.text.toString())
          //   var filtersVaild = filtersActivated(cbArts.isChecked,cbPolitics.isChecked,cbBusiness.isChecked,cbSports.isChecked,cbEntrepreneur.isChecked,cbTravel.isChecked)
-           var searchQuery = validator.getSearchQuery(messageInput.text.toString())
+           val searchQuery = validator.getSearchQuery(messageInput.text.toString())
 
             if (searchQuery == false) {
                 Toast.makeText(context, "You need to enter a search query", Toast.LENGTH_SHORT).show()
-           // showToast(buildToastMessage("You need to enter a search query"))
             }
 
             else if (filtersVaild == false) {
@@ -180,25 +178,16 @@ class FilterFragment : Fragment() {
         else return travelFilter == true
     }
 
-    private  fun isSearchEmpty(searchString: String):Boolean{
-        if (searchString == "") {
-            return true
-        }
-        else
-        return false
-    }
-
-
 
     private fun createNotificationChannel() {
-        val seconds = 31536000 * 1000 // change the 3 to 31536000 when i need to hand in
+        val seconds = 31536000000
         val intent = Intent(context, Receiver::class.java)
         val pendingIntent =
             PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         Log.d("MainActivity", "Create : " + Date().toString())
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP,
-            System.currentTimeMillis() + seconds, 1000 * 60 * 525600, pendingIntent)
+            System.currentTimeMillis() + seconds, 31536000000, pendingIntent)
         val CHANNEL_ID = "chanel_id_example_01"
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Notification Title"

@@ -39,24 +39,5 @@ class Query : AppCompatActivity(), Communicator {
         transaction.commit()
     }
 
-    private  fun createNotificationChannel(){
-        val seconds = 3 *1000 // change the 3 to 31536000 when i need to hand in
-        val intent = Intent(this, Receiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(this,0,intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        Log.d("MainActivity", "Create : " + Date().toString())
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-            System.currentTimeMillis() + seconds,1000 * 60 * 1, pendingIntent)// change the 1 to 525600
-        val CHANNEL_ID = "chanel_id_example_01"
-        val notificationId = 101
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            val name = "Notifaction Title"
-            val descriptionText = "Notification Description"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-                description = descriptionText
-            }
-            val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
-    }
+
 }
