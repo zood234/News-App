@@ -1,4 +1,4 @@
-package com.example.newsapp
+package com.example.newsapp.interfaces
 
 interface Communicator {
     fun passDataCom(editTextInput:String)

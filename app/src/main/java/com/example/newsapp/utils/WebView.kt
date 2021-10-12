@@ -1,9 +1,11 @@
-package com.example.newsapp
+package com.example.newsapp.utils
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.example.newsapp.R
+import com.example.newsapp.articleClicked
 
 //launches a webview for the clicked article
 class WebView : AppCompatActivity() {

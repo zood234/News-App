@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.*
-import com.example.newsapp.jsonData.SearchResponse.QueryResponse
-import com.example.newsappwithapi.NewsApi
+import com.example.newsapp.activities.searchFilters
+import com.example.newsapp.models.jsonData.SearchResponse.QueryResponse
+import com.example.newsapp.interfaces.NewsApi
 import com.example.recyclerview.ItemAdapter
 import kotlinx.android.synthetic.main.fragment_b.*
 import kotlinx.android.synthetic.main.fragment_b.view.*

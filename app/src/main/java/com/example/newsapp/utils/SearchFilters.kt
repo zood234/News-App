@@ -1,4 +1,4 @@
-package com.example.newsapp
+package com.example.newsapp.utils
 
 //stores the filters for the search
 class SearchFilters {

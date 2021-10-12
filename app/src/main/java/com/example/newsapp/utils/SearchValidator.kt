@@ -1,4 +1,4 @@
-package com.example.newsapp
+package com.example.newsapp.utils
 
 import kotlinx.android.synthetic.main.fragment_a.*
 

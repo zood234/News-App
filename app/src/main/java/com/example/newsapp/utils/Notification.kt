@@ -1,4 +1,4 @@
-package com.example.newsapp
+package com.example.newsapp.utils
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -6,8 +6,10 @@ import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.example.newsapp.jsonData.SearchResponse.QueryResponse
-import com.example.newsappwithapi.NewsApi
+import com.example.newsapp.*
+import com.example.newsapp.activities.searchFilters
+import com.example.newsapp.models.jsonData.SearchResponse.QueryResponse
+import com.example.newsapp.interfaces.NewsApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.util.*
 
-class Receiver : BroadcastReceiver(){
+class Notification : BroadcastReceiver(){
     val CHANNEL_ID = "chanel_id_example_01"
     val notificationId = 101
 
@@ -52,7 +54,8 @@ class Receiver : BroadcastReceiver(){
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service = retrofit.create(NewsApi::class.java)
-        val call = service.SearchQueryApi( searchFilters.searchBox,searchFilters.arts, searchFilters.politics,  searchFilters.business,
+        val call = service.SearchQueryApi( searchFilters.searchBox,
+            searchFilters.arts, searchFilters.politics,  searchFilters.business,
             searchFilters.sports, searchFilters.entrepreneur, searchFilters.travel, searchFilters.starDate,
             searchFilters.endDate, "x2iWc8c8nV8F0MKCLZjxFSjjWx4JApsk")
 

@@ -1,9 +1,8 @@
-package com.example.newsappwithapi
+package com.example.newsapp.interfaces
 
-import com.example.newsapp.jsonData.ArtResponse
-import com.example.newsapp.jsonData.MostPopularResponse
-import com.example.newsapp.jsonData.SearchResponse.Doc
-import com.example.newsapp.jsonData.SearchResponse.QueryResponse
+import com.example.newsapp.models.jsonData.ArtResponse
+import com.example.newsapp.models.jsonData.MostPopularResponse
+import com.example.newsapp.models.jsonData.SearchResponse.QueryResponse
 import com.example.newsappwithapi.dataWeb.TopStoriesResponse
 import retrofit2.Call
 import retrofit2.http.GET

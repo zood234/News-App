@@ -14,6 +14,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.newsapp.*
+import com.example.newsapp.activities.alarmManager
+import com.example.newsapp.activities.searchFilters
+import com.example.newsapp.utils.Notification
+import com.example.newsapp.interfaces.Communicator
+import com.example.newsapp.utils.SearchValidator
 import kotlinx.android.synthetic.main.fragment_a.*
 import kotlinx.android.synthetic.main.fragment_a.view.*
 import java.text.SimpleDateFormat
@@ -134,7 +139,7 @@ class FilterFragment : Fragment() {
     }
 
     private fun cancelNotification(){
-        val intent = Intent(context, Receiver()::class.java)
+        val intent = Intent(context, Notification()::class.java)
         val pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT)
         Log.d("MainActivity", "Delete : " + Date().toString())
         alarmManager.cancel((pendingIntent))
@@ -181,7 +186,7 @@ class FilterFragment : Fragment() {
 
     private fun createNotificationChannel() {
         val seconds = 31536000000
-        val intent = Intent(context, Receiver::class.java)
+        val intent = Intent(context, Notification::class.java)
         val pendingIntent =
             PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         Log.d("MainActivity", "Create : " + Date().toString())

@@ -1,5 +1,6 @@
 package com.example.newsapp
 
+import com.example.newsapp.utils.SearchValidator
 import org.junit.Assert.*
 import org.junit.Test
 

@@ -1,18 +1,14 @@
-package com.example.newsapp
+package com.example.newsapp.activities
 
 import android.app.AlarmManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.example.myapplication.fragments.FilterFragment
 import com.example.myapplication.fragments.RecyclerViewFragment
-import java.util.*
+import com.example.newsapp.R
+import com.example.newsapp.interfaces.Communicator
+import com.example.newsapp.utils.SearchFilters
 
 var searchFilters = SearchFilters()
 lateinit var alarmManager : AlarmManager

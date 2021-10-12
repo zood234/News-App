@@ -1,7 +1,4 @@
-package com.example.newsapp.jsonData
-
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+package com.example.newsapp.models.jsonData
 
 data class ArtResponse(
     val copyright: String,

@@ -8,12 +8,11 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.newsapp.ArticleClicked
-import com.example.newsapp.Query
-import com.example.newsapp.R
-import com.example.newsapp.jsonData.ArtResponse
-import com.example.newsapp.jsonData.MostPopularResponse
-import com.example.newsappwithapi.NewsApi
+import com.example.newsapp.activities.Query
+import com.example.newsapp.models.jsonData.ArtResponse
+import com.example.newsapp.models.jsonData.MostPopularResponse
+import com.example.newsapp.utils.ArticleClicked
+import com.example.newsapp.interfaces.NewsApi
 import com.example.newsappwithapi.dataWeb.TopStoriesResponse
 import com.example.recyclerview.ItemAdapter
 import kotlinx.android.synthetic.main.activity_main.*

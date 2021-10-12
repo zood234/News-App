@@ -1,4 +1,4 @@
-package com.example.newsapp.jsonData.SearchResponse
+package com.example.newsapp.models.jsonData.SearchResponse
 
 data class Keyword(
     val major: String,
