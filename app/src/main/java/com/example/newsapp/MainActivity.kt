@@ -239,51 +239,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    //Refactored one
-    private suspend fun runApiQuery(section: String, imageVariableUsed:String){
-        var section = "TopStoriesResponse"
-        var imageVariableUsed = "newsResponse.results[i].multimedia[0].url"
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.nytimes.com/svc/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val service = retrofit.create(NewsApi::class.java)
-
-        val call = service.topStories()
-        call.enqueue(object : Callback<TopStoriesResponse> {
-
-            override fun onResponse(call: Call<TopStoriesResponse>, response: Response<TopStoriesResponse>) {
-
-                if (response.code() == 200) {
-                    val newsResponse = response.body()!!
-
-                    for (i in 1..newsResponse.results.size-1) {
-                        titleList.add(newsResponse.results[i].title)
-                    }
-                    for (i in 1..newsResponse.results.size-1) {
-                        dateList.add(newsResponse.results[i].published_date)
-                    }
-                    for (i in 1..newsResponse.results.size-1) {
-                        urlList.add(newsResponse.results[i].url)
-                    }
-                    for (i in 1..newsResponse.results.size-1) {
-                        pictureList.add(newsResponse.results[i].multimedia[0].url) // need to change
-
-                    }
-                    for (i in 1..newsResponse.results.size-1) {
-                        categoryList.add(newsResponse.results[i].section)
-
-                    }
-                    recyclerView(titleList,dateList, categoryList, pictureList, urlList)
-                }
-            }
-            override fun onFailure(call: Call<TopStoriesResponse>, t: Throwable) {
-                Toast.makeText(applicationContext, "There are network connectivity problems", Toast.LENGTH_LONG).show()
-                println("There are network connectivity problems")
-            }
-        })
-    }
 
     // creates the recycler view and populates it with the data provided by arrays
     fun recyclerView( title: ArrayList<String?>,  publishedDate: ArrayList<String>,

@@ -23,6 +23,7 @@ class Receiver : BroadcastReceiver(){
     override fun onReceive(context: Context, intent: Intent?) {
 
         searchQuery()
+        //Checks to see if the top article is the same as the previous time the search was done
         while (titleList[0].toString() !== compareString){
 
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
@@ -44,7 +45,7 @@ class Receiver : BroadcastReceiver(){
 
     }
 
-
+//Runs a search for the query
     private fun searchQuery(){
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.nytimes.com/svc/")
