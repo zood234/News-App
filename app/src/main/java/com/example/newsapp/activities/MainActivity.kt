@@ -1,4 +1,4 @@
-package com.example.newsapp
+package com.example.newsapp.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.newsapp.R
 import com.example.newsapp.activities.Query
 import com.example.newsapp.models.jsonData.ArtResponse
 import com.example.newsapp.models.jsonData.MostPopularResponse

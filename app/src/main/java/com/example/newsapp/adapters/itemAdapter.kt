@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
+import com.example.newsapp.activities.articleClicked
 import com.example.newsapp.utils.WebView
-import com.example.newsapp.articleClicked
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_custom_row.view.*
 import kotlin.collections.ArrayList

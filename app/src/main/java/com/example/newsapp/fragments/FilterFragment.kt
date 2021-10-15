@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.newsapp.*
 import com.example.newsapp.activities.alarmManager
+import com.example.newsapp.activities.notifactionOrSlider
 import com.example.newsapp.activities.searchFilters
 import com.example.newsapp.utils.Notification
 import com.example.newsapp.interfaces.Communicator

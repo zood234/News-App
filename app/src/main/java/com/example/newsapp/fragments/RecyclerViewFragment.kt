@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.*
-import com.example.newsapp.activities.searchFilters
+import com.example.newsapp.activities.*
 import com.example.newsapp.models.jsonData.SearchResponse.QueryResponse
 import com.example.newsapp.interfaces.NewsApi
 import com.example.recyclerview.ItemAdapter

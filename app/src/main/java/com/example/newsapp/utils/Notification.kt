@@ -7,7 +7,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.newsapp.*
-import com.example.newsapp.activities.searchFilters
+import com.example.newsapp.activities.*
 import com.example.newsapp.models.jsonData.SearchResponse.QueryResponse
 import com.example.newsapp.interfaces.NewsApi
 import retrofit2.Call
