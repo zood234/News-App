@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isGone
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.*
 import com.example.newsapp.activities.searchFilters
@@ -40,6 +41,7 @@ class RecyclerViewFragment : Fragment() {
         view.displaymsg.text = searchQuery
         searchQuery(titleList, dateList, categoryList, pictureList, urlList)
         view.displaymsg.text = searchQuery
+        view.displaymsg.isGone = true
         return  view
     }
 

@@ -127,7 +127,7 @@ class FilterFragment : Fragment() {
             }
 
             else {
-                Toast.makeText(context, "The search was successful", Toast.LENGTH_SHORT).show()
+               // Toast.makeText(context, "The New York Times API was successfully reached", Toast.LENGTH_SHORT).show()
                 searchFilters.searchBox = view.messageInput.text.toString()
                 communicatior = activity as Communicator
                 communicatior.passDataCom(view.messageInput.text.toString())
