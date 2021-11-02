@@ -161,26 +161,22 @@ class MainActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     val newsResponse = response.body()!!
 
-                    for (i in 1..newsResponse.results.size-1) {
+                    for (i in 0..newsResponse.results.size-1) {
                         titleList.add(newsResponse.results[i].title)
-                    }
-                    for (i in 1..newsResponse.results.size-1) {
+
                         dateList.add(newsResponse.results[i].published_date)
-                    }
-                    for (i in 1..newsResponse.results.size-1) {
+
                         urlList.add(newsResponse.results[i].url)
-                    }
-                    for (i in 0..6) {
-                        if (newsResponse.results[0].media[0].media_metadata[0].url != "") {
-                            pictureList.add(newsResponse.results[0].media[0].media_metadata[0].url)
-                            pictureList.add(newsResponse.results[1].media[0].media_metadata[0].url)
-                            pictureList.add(newsResponse.results[2].media[0].media_metadata[0].url)
-                            pictureList.add(newsResponse.results[3].media[0].media_metadata[0].url)
-                            pictureList.add(newsResponse.results[4].media[0].media_metadata[0].url)
-                            pictureList.add(newsResponse.results[5].media[0].media_metadata[0].url)
+//                            println("THE NEWS RESPONSE " + newsResponse.results[i].media[0].media_metadata[0].url)
+//                        pictureList.add(newsResponse.results[i].media[0].media_metadata[0].url)
+
+                        if (newsResponse.results[i].media.size > 0  ) {
+                            pictureList.add(newsResponse.results[i].media[0].media_metadata[0].url)
                         }
-                   }
-                    for (i in 1..newsResponse.results.size-1) {
+                        else {
+                            pictureList.add("https://static01.nyt.com/" )
+                        }
+
                         categoryList.add(newsResponse.results[i].section)
 
                     }
