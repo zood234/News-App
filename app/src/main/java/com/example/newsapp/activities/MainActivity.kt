@@ -167,8 +167,6 @@ class MainActivity : AppCompatActivity() {
                         dateList.add(newsResponse.results[i].published_date)
 
                         urlList.add(newsResponse.results[i].url)
-//                            println("THE NEWS RESPONSE " + newsResponse.results[i].media[0].media_metadata[0].url)
-//                        pictureList.add(newsResponse.results[i].media[0].media_metadata[0].url)
 
                         if (newsResponse.results[i].media.size > 0  ) {
                             pictureList.add(newsResponse.results[i].media[0].media_metadata[0].url)
@@ -218,7 +216,7 @@ class MainActivity : AppCompatActivity() {
                         urlList.add(newsResponse.results[i].url)
                     }
                     for (i in 1..newsResponse.results.size-1) {
-                        pictureList.add(newsResponse.results[i].multimedia[0].url) // need to change
+                        pictureList.add(newsResponse.results[i].multimedia[0].url)
 
                     }
                     for (i in 1..newsResponse.results.size-1) {
