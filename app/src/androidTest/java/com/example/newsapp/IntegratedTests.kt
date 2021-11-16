@@ -31,7 +31,10 @@ class IntegratedTests(){
 
     @Test
     fun noInternet() {
-//        val activityScenario = ActivityScenario.launch(MainActivity::class.java)
+        val activityScenario = ActivityScenario.launch(Query::class.java)
+        val search = "trump"
+        onView(withId(R.id.messageInput)).perform(ViewActions.typeText(search.toString()))
+ // val activityScenario = ActivityScenario.launch(MainActivity::class.java)
 //        lateinit var instrumentationContext: Context
 //        instrumentationContext = InstrumentationRegistry.getInstrumentation().context
 //        val wifi = instrumentationContext.getSystemService(WIFI_SERVICE) as WifiManager
