@@ -17,17 +17,17 @@ import org.junit.Assert
 import org.junit.Test
 
 
-class IntegratedTests(){
-    @Test
-    fun startDateAndEndDateEmpty() {
-        val activityScenario = ActivityScenario.launch(Query::class.java)
-        val search = "trump"
-        onView(withId(R.id.messageInput)).perform(ViewActions.typeText(search.toString()))
-        Espresso.closeSoftKeyboard()
-        onView(withId(R.id.cbPolitics)).perform(ViewActions.click())
-        onView(withId(R.id.sendBtn)).perform(ViewActions.click())
-        onView(withId(R.id.recyclerViewFragment)).check(matches(isDisplayed()))
-    }
+//class IntegratedTests(){
+//    @Test
+//    fun startDateAndEndDateEmpty() {
+//        val activityScenario = ActivityScenario.launch(Query::class.java)
+//        val search = "trump"
+//        onView(withId(R.id.messageInput)).perform(ViewActions.typeText(search.toString()))
+//        Espresso.closeSoftKeyboard()
+//        onView(withId(R.id.cbPolitics)).perform(ViewActions.click())
+//        onView(withId(R.id.sendBtn)).perform(ViewActions.click())
+//        onView(withId(R.id.recyclerViewFragment)).check(matches(isDisplayed()))
+//    }
 
 //    @Test
 //    fun noInternet() {
@@ -54,4 +54,4 @@ class IntegratedTests(){
 
 
 
-}
+//}
