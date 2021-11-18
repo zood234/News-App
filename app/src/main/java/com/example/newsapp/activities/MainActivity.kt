@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.R
-import com.example.newsapp.activities.Query
 import com.example.newsapp.models.jsonData.ArtResponse
 import com.example.newsapp.models.jsonData.MostPopularResponse
 import com.example.newsapp.utils.ArticleClicked
@@ -73,7 +72,6 @@ class MainActivity : AppCompatActivity() {
 
     //Main menu
     override fun onOptionsItemSelected(item: MenuItem): Boolean{
-    val i = Intent(this@MainActivity, Query::class.java)
 
         when(item.itemId){
                     R.id.miSearch -> startSearch()
@@ -100,7 +98,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //runs arts api and gets the data via arts and then populates the recycler view
-    private suspend fun getArts(){
+    private fun getArts(){
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.nytimes.com/svc/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -113,20 +111,24 @@ class MainActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     val newsResponse = response.body()!!
 
-                    for (i in 0..5) {
-                       titleList.add(newsResponse.results[i].title)
-                    }
-                    for (i in 0..5) {
-                       dateList.add(newsResponse.results[i].published_date)
-                    }
-                    for (i in 0..5) {
-                       urlList.add(newsResponse.results[i].url)
-                    }
-                    for (i in 0..5) {
-                       pictureList.add(newsResponse.results[i].multimedia[0].url)
+                        for (i in 1..newsResponse.results.size-1) {
 
-                    }
-                    for (i in 0..6) {
+                            titleList.add(newsResponse.results[i].title)
+
+                       dateList.add(newsResponse.results[i].published_date)
+
+                       urlList.add(newsResponse.results[i].url)
+
+
+                            if (newsResponse.results[i].multimedia.size > 0  ) {
+                                pictureList.add(newsResponse.results[i].multimedia[0].url)
+                            }
+                            else {
+                                pictureList.add("https://static01.nyt.com/" )
+                            }
+
+
+
                       categoryList.add(newsResponse.results[i].section)
 
                     }
@@ -146,7 +148,7 @@ class MainActivity : AppCompatActivity() {
 
 
     //runs most popular api and gets the data via arts and then populates the recycler view
-    private suspend fun getMostPopular(){
+    private fun getMostPopular(){
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.nytimes.com/svc/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -161,7 +163,7 @@ class MainActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     val newsResponse = response.body()!!
 
-                    for (i in 0..newsResponse.results.size-1) {
+                    for (i in newsResponse.results.indices) {
                         titleList.add(newsResponse.results[i].title)
 
                         dateList.add(newsResponse.results[i].published_date)
@@ -191,7 +193,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //runs top stories api and gets the data via arts and then populates the recycler view
-    private suspend fun getTopStories(){
+    private fun getTopStories(){
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.nytimes.com/svc/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -208,18 +210,13 @@ class MainActivity : AppCompatActivity() {
 
                     for (i in 1..newsResponse.results.size-1) {
                         titleList.add(newsResponse.results[i].title)
-                    }
-                    for (i in 1..newsResponse.results.size-1) {
+
                         dateList.add(newsResponse.results[i].published_date)
-                    }
-                    for (i in 1..newsResponse.results.size-1) {
+
                         urlList.add(newsResponse.results[i].url)
-                    }
-                    for (i in 1..newsResponse.results.size-1) {
+
                         pictureList.add(newsResponse.results[i].multimedia[0].url)
 
-                    }
-                    for (i in 1..newsResponse.results.size-1) {
                         categoryList.add(newsResponse.results[i].section)
 
                     }
